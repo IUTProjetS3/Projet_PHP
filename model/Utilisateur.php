@@ -1,19 +1,18 @@
 <?php
-require_once File::build_path(['model','Model.php']);
+require_once File::build_path('Model.php');
 
 class Utilisateur
 {   
         private $nomUtilisateur;
         private $prenomUtilisateur;	
         private $mailUtilisateur;	
-        private $mdpUtilisateur;
         private $idUtilisateur;	
         private $role;
             
         public function setAttr($attr, $value){
             $this->$attr = $value;
         }
-    public function getAttr($attr){
+   public function getAttr($attr){
             return $this->$attr;
         }
             
@@ -26,37 +25,27 @@ class Utilisateur
             }
         }
 
-        public static function disconnect()
-        {
+        public function disconnect(){
             session_unset();
             session_destroy();
             header("Location:index.php");
-        }
+        } 
       
         
-        public static function getUtilisateurId($idUtilisateur) {
-          $sql = "SELECT * from projet_utilisateur WHERE idUtilisateur=:nom_tag";
-          // Préparation de la requête
-          $req_prep = Model::$pdo->prepare($sql);
+            public function saveUtilisateur($idUtilisateur){
+                try{
+                    $q = Model::$pdo->prepare('INSERT INTO casse_utilisateur(identifiant, mdp) VALUES(:i, :m)');
+                    $q->execute([
+                        ':i' => $identifiant,
+                        ':m' => $crypt_mdp
+                    ]);		
+                }catch(PDOException $e){
+                    echo $e->getMessage();
+                    die();
+                }
+            }
       
-          $values = array(
-              "nom_tag" => $immat,
-              //nomdutag => valeur, ...
-              );
-      
-          // On donne les valeurs et on exécute la requête   
-          $req_prep->execute($values);
-      
-          // On récupère les résultats comme précédemmerequire_once "Model.php";require_once "Model.php";nt
-          $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
-          $tab_voit = $req_prep->fetchAll();
-          // Attention, si il n'y a pas de résultats, on renvoie false
-          if (empty($tab_ut))
-              return false;
-          return $tab_ut[0];
-        }
-      
-         public function save() {
+         public function saveUtilisateur($nomUtilisateur, $prenomUtilisateur, $crypt_mdp, $mdpUtilisateur, $idUtilisateur, $role) {
               try {
                   $sql = "INSERT INTO projet_utilisateur (nomUtilisateur, prenomUtilisateur, mailUtilisateur, mdpUtilisateur, idUtilisateur, role
                   ) VALUES (:nomUtilisateur, :prenomUtilisateur, :mailUtilisateur, :mdpUtilisateur, :idUtilisateur, :role)";
@@ -64,12 +53,12 @@ class Utilisateur
                   $req_prep = Model::$pdo->prepare($sql);
       
                   $values = array(
-                      "nomUtilisateur" => $this->nomUtilisateur,
-                      "prenomUtilisateur" => $this->prenomUtilisateur,
-                      "mailUtilisateur" => $this->mailUtilisateur,
-                      "mdpUtilisateur" => $this->mdpUtilisateurr,
-                      "idUtilisateur" => $this->idUtilisateur,
-                      "role" => $this->role,
+                      "nomUtilisateur" => $nomUtilisateur,
+                      "prenomUtilisateur" => $prenomUtilisateur,
+                      "mailUtilisateur" => $mailUtilisateur,
+                      "mdpUtilisateur" => $$crypt_mdp,
+                      "idUtilisateur" => $idUtilisateur,
+                      "role" => $role,
                   );
                   // On donne les valeurs et on exécute la requête   
                   $req_prep->execute($values);
