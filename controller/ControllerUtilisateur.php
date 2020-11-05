@@ -38,6 +38,8 @@
 							if($mdp == $remdp){
 								Utilisateur::save($nom, $prenom, $mail, password_hash($mdp, PASSWORD_BCRYPT));
 
+								self::sendMail($mail);
+
 								$_SESSION['projet_user_connected'] = Utilisateur::getUtilisateurByMail($mail);
 								$controller = "accueil";
 								$page = "index";
@@ -115,6 +117,17 @@
 			$controller = 'accueil';
 			$page = 'index';
 			require File::build_path(['view', 'view.php']);
+		}
+
+		public static function sendMail(){
+			$to      = $mail;
+     		$subject = 'Inscription Site Librairie';
+		     $message = 'Bienvenue sur le site Librairie.com';
+		     $headers = 'From: webmaster@example.com' . "\r\n" .
+		     'Reply-To: webmaster@example.com' . "\r\n" .
+		     'X-Mailer: PHP/' . phpversion();
+
+		     mail($to, $subject, $message, $headers);
 		}
 	}
 ?>
