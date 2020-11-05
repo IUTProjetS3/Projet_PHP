@@ -25,27 +25,15 @@ class Utilisateur
             }
         }
 
-        public function disconnect(){
+        public static function disconnect(){
             session_unset();
             session_destroy();
             header("Location:index.php");
         } 
       
         
-            public function saveUtilisateur($idUtilisateur){
-                try{
-                    $q = Model::$pdo->prepare('INSERT INTO casse_utilisateur(identifiant, mdp) VALUES(:i, :m)');
-                    $q->execute([
-                        ':i' => $identifiant,
-                        ':m' => $crypt_mdp
-                    ]);		
-                }catch(PDOException $e){
-                    echo $e->getMessage();
-                    die();
-                }
-            }
-      
-         public function saveUtilisateur($nomUtilisateur, $prenomUtilisateur, $crypt_mdp, $mdpUtilisateur, $idUtilisateur, $role) {
+
+         public static function saveUtilisateur($nomUtilisateur, $prenomUtilisateur, $crypt_mdp, $mdpUtilisateur, $idUtilisateur, $role) {
               try {
                   $sql = "INSERT INTO projet_utilisateur (nomUtilisateur, prenomUtilisateur, mailUtilisateur, mdpUtilisateur, idUtilisateur, role
                   ) VALUES (:nomUtilisateur, :prenomUtilisateur, :mailUtilisateur, :mdpUtilisateur, :idUtilisateur, :role)";
