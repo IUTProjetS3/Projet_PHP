@@ -1,14 +1,14 @@
 <?php
-require_once File::build_path('model/Model.php');
+require_once File::build_path('Model.php');
 
 class Utilisateur
 {   
-        private $nomUtilisateur	
-        private $prenomUtilisateur	
-        private $mailUtilisateur	
-        private $mdpUtilisateur	
-        private $idUtilisateur	
-        private $role
+        private $nomUtilisateur;
+        private $prenomUtilisateur;	
+        private $mailUtilisateur;	
+        private $mdpUtilisateur;
+        private $idUtilisateur;	
+        private $role;
             
         public function setAttr($attr, $value){
             $this->$attr = $value;
