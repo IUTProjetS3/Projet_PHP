@@ -38,7 +38,7 @@
 							if($mdp == $remdp){
 								Utilisateur::save($nom, $prenom, $mail, password_hash($mdp, PASSWORD_BCRYPT));
 
-								self::sendMail($mail);
+								//self::sendMail($mail);
 
 								$_SESSION['projet_user_connected'] = Utilisateur::getUtilisateurByMail($mail);
 								$controller = "accueil";
