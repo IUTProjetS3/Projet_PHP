@@ -1,5 +1,5 @@
 <?php
-require_once File::build_path('Model.php');
+require_once File::build_path(['model','Model.php']);
 
 class Utilisateur
 {   
