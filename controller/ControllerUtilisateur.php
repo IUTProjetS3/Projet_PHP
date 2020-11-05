@@ -123,11 +123,11 @@
 			$to      = $mail;
      		$subject = 'Inscription Site Librairie';
 		     $message = 'Bienvenue sur le site Librairie.com';
-		     $headers = 'From: webmaster@example.com' . "\r\n" .
+		     $headers = 'From: noreply.librairie@gmail.com' . "\r\n" .
 		     'Reply-To: webmaster@example.com' . "\r\n" .
 		     'X-Mailer: PHP/' . phpversion();
 
-		     $success = mail($to, $subject, $message, $headers);
+		     $success = mail($to, $subject, $message, $headers, "-fnoreply.librairie@gmail.com");
 
 		     if (!$success) {
 				    $errorMessage = error_get_last()['message'];
