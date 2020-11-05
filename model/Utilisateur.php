@@ -26,10 +26,12 @@ class Utilisateur
             }
         }
 
-        public static function disconnect(){
+        public static function disconnect()
+        {
             session_unset();
             session_destroy();
-            header("Location:index.php"); 
+            header("Location:index.php");
+        }
       
         
         public static function getUtilisateurId($idUtilisateur) {
