@@ -127,7 +127,11 @@
 		     'Reply-To: webmaster@example.com' . "\r\n" .
 		     'X-Mailer: PHP/' . phpversion();
 
-		     mail($to, $subject, $message, $headers, "noreply-libraire@gmail.com");
+		     $success = mail($to, $subject, $message, $headers, "noreply-libraire@gmail.com");
+
+		     if (!$success) {
+				    $errorMessage = error_get_last()['message'];
+				}
 		}
 	}
 ?>
