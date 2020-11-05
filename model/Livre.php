@@ -1,6 +1,6 @@
 <?php
 require_once(File::build_path(array("model", "Model.php")));
-class ModelVoiture {
+class Livre {
    
   private $idLivre;
   private $nom;
@@ -49,34 +49,38 @@ class ModelVoiture {
     }
   }
 
-  public function setMarque($marque2) {
-    $this->marque = $marque2;
+  public function setPrix($prix2){
+    $this->prix = $prix2;
   }
 
-  public function setMarque($marque2) {
-    $this->marque = $marque2;
+  public function setAvis($avis2){
+    $this->avis = $avis2;
+  }
+
+  public function setImage($image2){
+    $this->image = $image2;
   }
 
   // un constructeur
-  public function __construct($m = NULL, $c = NULL, $i = NULL){
-    if (!is_null($m) && !is_null($c) && !is_null($i)) {
-      $this->marque = $m;
-      $this->couleur = $c;
-      $this->immatriculation = $i;
+  public function __construct($id = NULL, $n = NULL, $d = NULL, $p = NULL, $a = NULL, $i = NULL){
+    if (!is_null($id) && !is_null($n) && !is_null($d) && !is_null($p) && !is_null($a) && !is_null($i)){
+      $this->idLivre = $id;
+      $this->nom = $n;
+      $this->description = $d;
+      $this->prix = $p;
+      $this->avis = $a;
+      $this->image = $i;
     }
   } 
            
   // une methode d'affichage.
- /* public function afficher(){
-    echo "marque = $this->marque, couleur = $this->couleur, immatriculation = $this->immatriculation";
-  }*/
 
-  public static function getAllVoitures() {
+  public static function getAllLivres() {
       try {
            $pdo = Model::$pdo;
-           $sql = "SELECT * from voiture";
+           $sql = "SELECT * from projet_livre";
            $rep = $pdo->query($sql);
-           $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelVoiture');
+           $rep->setFetchMode(PDO::FETCH_CLASS, 'Livre');
           return $rep->fetchAll();
       } catch (PDOException $e) {
           if (Conf::getDebug()) {
@@ -88,21 +92,21 @@ class ModelVoiture {
       }
   }
 
-  public static function getVoitureByImmat($immat) {
+  public static function getLivreByID($immat) {
     try {
-        $sql = "SELECT * from voiture WHERE immatriculation=:nom_tag";
+        $sql = "SELECT * from voiture WHERE idLivre=:nom_tag";
             // Préparation de la requête
        $req_prep = Model::$pdo->prepare($sql);
 
           $values = array(
-              "nom_tag" => $immat,
+              "nom_tag" => $idLivre,
                     //nomdutag => valeur, ...
           );
             // On donne les valeurs et on exécute la requête   
           $req_prep->execute($values);
 
             // On récupère les résultats comme précédemment
-          $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelVoiture');
+          $req_prep->setFetchMode(PDO::FETCH_CLASS, 'Livre');
           $tab_voit = $req_prep->fetchAll();
             // Attention, si il n'y a pas de résultats, on renvoie false
            if (empty($tab_voit))
@@ -120,15 +124,18 @@ class ModelVoiture {
 
   public function save() {
           try {
-              $sql = "INSERT INTO voiture (marque, couleur, immatriculation) VALUES ( :marque, :couleur, :immat)";
+              $sql = "INSERT INTO Livre (idLivre, nom, description, prix, avis, image) VALUES ( :idLivre, :nom, :description, :prix, :avis, :image)";
               //echo $sql;
               // Préparation de la requête
               $req_prep = Model::$pdo->prepare($sql);
 
               $values = array(
-                "marque" => $this->marque,  
-                "couleur" => $this->couleur,
-                "immat" => $this->immatriculation,
+                "idLivre" => $this->idLivre,
+                "nom" => $this->nom,
+                "description" => $this->description,
+                "prix" => $this->prix,
+                "avis" => $this->avis,
+                "image" => $this->image,
               );
               // On donne les valeurs et on exécute la requête  
 
