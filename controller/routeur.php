@@ -2,7 +2,7 @@
 
 require_once(File::build_path(array("controller", "ControllerUtilisateur.php")));
 require_once(File::build_path(array("controller", "ControllerAccueil.php")));
-
+session_start();
 
 $action = 'accueil';
 if(isset($_GET['action'])){

@@ -2,7 +2,7 @@
 
 	$CSS = [
     'view/css/header.css',
-    'view/css/style.css',
+    'view/css/style1.css',
 ];
 $JS = [];
 $LIBRAIRIES = [];
@@ -10,7 +10,19 @@ $LIBRAIRIES = [];
 
 	require File::build_path(['view', 'html', 'html_start.php']);
 	require File::build_path(['view', 'html', 'header.php']);
-	require File::build_path(['view', $controller, "$page.php"]);
+
+	?>
+	<div class="main_container">
+	<?php
+		if(isset($erreur)){
+			if($erreur != ""){
+				require File::build_path(['view', $controller, "error.php"]);
+			}
+		}
+		require File::build_path(['view', $controller, "$page.php"]);
+	?>
+	</div>
+	<?php
 	require File::build_path(['view', 'html', 'html_end.php']);
 
 ?>

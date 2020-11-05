@@ -1,5 +1,5 @@
 <?php
-require_once File::build_path('Model.php');
+require_once File::build_path(['model','Model.php']);
 
 class Utilisateur
 {   
@@ -28,25 +28,53 @@ class Utilisateur
         public static function disconnect(){
             session_unset();
             session_destroy();
-            header("Location:index.php");
         } 
-      
-        
 
-         public static function saveUtilisateur($nomUtilisateur, $prenomUtilisateur, $crypt_mdp, $mdpUtilisateur, $idUtilisateur, $role) {
-              try {
-                  $sql = "INSERT INTO projet_utilisateur (nomUtilisateur, prenomUtilisateur, mailUtilisateur, mdpUtilisateur, idUtilisateur, role
-                  ) VALUES (:nomUtilisateur, :prenomUtilisateur, :mailUtilisateur, :mdpUtilisateur, :idUtilisateur, :role)";
+        public static function getUtilisateurByMail($mail){
+          try {
+                  $sql = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, mailUtilisateur, role FROM projet_utilisateur WHERE mailUtilisateur = :m";
                   // Préparation de la requête
                   $req_prep = Model::$pdo->prepare($sql);
       
                   $values = array(
-                      "nomUtilisateur" => $nomUtilisateur,
-                      "prenomUtilisateur" => $prenomUtilisateur,
-                      "mailUtilisateur" => $mailUtilisateur,
-                      "mdpUtilisateur" => $$crypt_mdp,
-                      "idUtilisateur" => $idUtilisateur,
-                      "role" => $role,
+                      ":m" => $mail
+                      
+                  );
+                  // On donne les valeurs et on exécute la requête   
+                  $req_prep->execute($values);
+                  $req_prep->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
+                  $tab_user = $req_prep->fetchAll();
+          
+        
+              } catch (PDOException $e) {
+                  if (Conf::getDebug()) {
+                      echo $e->getMessage(); // affiche un message d'erreur
+                  } else {
+                      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                  }
+                  die();
+              }
+
+              if(empty($tab_user))
+                return false;
+              return $tab_user[0];
+        }
+      
+        
+
+         public static function save($nomUtilisateur, $prenomUtilisateur, $mail, $mdp_crypt) {
+              try {
+                  $sql = "INSERT INTO projet_utilisateur (nomUtilisateur, prenomUtilisateur, mailUtilisateur, mdpUtilisateur
+                  ) VALUES (:nomUtilisateur, :prenomUtilisateur, :mailUtilisateur, :mdpUtilisateur)";
+                  // Préparation de la requête
+                  $req_prep = Model::$pdo->prepare($sql);
+      
+                  $values = array(
+                      ":nomUtilisateur" => $nomUtilisateur,
+                      ":prenomUtilisateur" => $prenomUtilisateur,
+                      ":mailUtilisateur" => $mail,
+                      ":mdpUtilisateur" => $mdp_crypt,
+                      
                   );
                   // On donne les valeurs et on exécute la requête   
                   $req_prep->execute($values);
@@ -60,6 +88,62 @@ class Utilisateur
                   }
                   die();
               }
+          }
+
+          public static function exist($mail){
+            try {
+                  $sql = "SELECT idUtilisateur FROM projet_utilisateur WHERE mailUtilisateur=:m";
+                  // Préparation de la requête
+                  $req_prep = Model::$pdo->prepare($sql);
+      
+                  $values = array(
+                      ":m" => $mail
+                      
+                  );
+                  // On donne les valeurs et on exécute la requête   
+                  $req_prep->execute($values);
+                  
+                  $tab_id = $req_prep->fetchAll();
+        
+              } catch (PDOException $e) {
+                  if (Conf::getDebug()) {
+                      echo $e->getMessage(); // affiche un message d'erreur
+                  } else {
+                      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                  }
+                  die();
+              }
+              if(empty($tab_id))
+                return false;
+              return true;
+          }
+
+          public static function getMdpByMail($mail){
+              try {
+                  $sql = "SELECT mdpUtilisateur FROM projet_utilisateur WHERE mailUtilisateur=:m";
+                  // Préparation de la requête
+                  $req_prep = Model::$pdo->prepare($sql);
+      
+                  $values = array(
+                      ":m" => $mail
+                      
+                  );
+                  // On donne les valeurs et on exécute la requête   
+                  $req_prep->execute($values);
+                  
+                  $tab_mdp = $req_prep->fetchAll();
+        
+              } catch (PDOException $e) {
+                  if (Conf::getDebug()) {
+                      echo $e->getMessage(); // affiche un message d'erreur
+                  } else {
+                      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                  }
+                  die();
+              }
+              if(empty($tab_mdp))
+                return [];
+              return $tab_mdp[0]['mdpUtilisateur'];
           }
       
 
