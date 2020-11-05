@@ -119,7 +119,7 @@
 			require File::build_path(['view', 'view.php']);
 		}
 
-		public static function sendMail(){
+		public static function sendMail($mail){
 			$to      = $mail;
      		$subject = 'Inscription Site Librairie';
 		     $message = 'Bienvenue sur le site Librairie.com';
