@@ -19,7 +19,11 @@ $JS = [
 $LIBRAIRIES = [
 
 ];
-require 'view/html/html_start.php';
-require 'view/html/header.php';
-require 'view/html/html_end.php';
+
+
+
+require File::build_path(['view', 'html', 'html_start.php']);
+require File::build_path(['view', 'html', 'header.php']);
+require File::build_path(['view', 'html', 'html_end.php']);
+
 ?>
