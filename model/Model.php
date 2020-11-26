@@ -47,7 +47,7 @@ class Model {
       die();
 
     }
-    
+
     if(empty($tab))
       return false;
     return $tab;
@@ -56,7 +56,7 @@ class Model {
   public static function select($value){
     $table_name = 'projet_'.static::$object;
     $class_name = ucfirst(static::$object);
-    $primary_key = static::$primaray;
+    $primary_key = static::$primary;
     try{
 
     $req_prep = Model::$pdo->prepare("SELECT * from $table_name WHERE $primary_key=:primary");
@@ -85,6 +85,7 @@ class Model {
   public static function update($data){
     $table_name = 'projet_'.static::$object;
     $class_name = ucfirst(static::$object);
+     $primary_key = static::$primary;
     $update = true;
     try{
 
@@ -146,6 +147,7 @@ class Model {
    public static function delete($primary){
       $table_name = 'projet_'.static::$object;
       $class_name = ucfirst(static::$object);
+       $primary_key = static::$primary;
         $delete = true;
       try{
 

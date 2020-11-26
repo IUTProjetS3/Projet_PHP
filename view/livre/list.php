@@ -1,5 +1,5 @@
 <?php 
-var_dump($tab_l);
+
 if($tab_l) : ?>
 	<ul>
 	<?php foreach ($tab_l) : ?>
