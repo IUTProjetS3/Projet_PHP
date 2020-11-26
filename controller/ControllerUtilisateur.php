@@ -5,6 +5,13 @@
 	 */
 	class ControllerUtilisateur
 	{
+
+	    public static function profil(){
+	        $controller = "profil";
+	        $page = "profil";
+
+	        require File::build_path(["view", "view.php"]);
+        }
 		
 		public static function inscription(){
 			$controller = "utilisateur";
