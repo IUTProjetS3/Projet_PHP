@@ -1,8 +1,11 @@
 <?php
 
 require_once(File::build_path(array("controller", "ControllerUtilisateur.php")));
+
 require_once(File::build_path(array("controller", "ControllerAccueil.php")));
+
 require_once(File::build_path(array("controller", "ControllerLivre.php")));
+
 session_start();
 
 $action = 'accueil';
@@ -24,9 +27,9 @@ if(isset($_GET['controller'])){
 }
 
 $controller_class = "Controller".ucfirst($controller);
-
 if(class_exists($controller_class)){
 	if(in_array($action, get_class_methods($controller_class))){
+
 		$controller_class::$action(); 
 	}else{
 		$erreur = "Erreur lors du traitement !";
@@ -36,4 +39,5 @@ if(class_exists($controller_class)){
 		$erreur = "Erreur lors du traitement !";
 		ControllerAccueil::error($erreur);
 	}
+
 ?>
