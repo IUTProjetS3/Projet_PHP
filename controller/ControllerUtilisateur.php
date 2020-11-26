@@ -64,7 +64,8 @@
 		}
 
 		public static function inscrire(){
-			$erreur = $nom = $prenom = $mail = "";
+            $TITLE = "Inscription";
+            $erreur = $nom = $prenom = $mail = "";
 			if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['mdp']) && !empty($_POST['remdp'])){
 				$nom = $_POST['nom'];
 				$prenom = $_POST['prenom'];
@@ -82,8 +83,9 @@
 								$_SESSION['projet_user_connected'] = Utilisateur::getUtilisateurByMail($mail);
 								$controller = "accueil";
 								$page = "index";
+                                $TITLE = "Accueil";
 
-								require File::build_path(["view", "view.php"]);
+                                require File::build_path(["view", "view.php"]);
 								}else{
 									$erreur = "Les mots de passe sont différents.";
 								}
@@ -111,7 +113,8 @@
 
 
 		public static function connecte(){
-			$erreur = $mail = "";
+            $TITLE = "Connexion";
+            $erreur = $mail = "";
 			
 			if(!empty($_POST['mail']) && !empty($_POST['mdp'])){
 				
@@ -126,6 +129,7 @@
 								$_SESSION['projet_user_connected'] = Utilisateur::getUtilisateurByMail($mail);
 								$controller = "accueil";
 								$page = "index";
+                        $TITLE = "Accueil";
 
 								require File::build_path(["view", "view.php"]);
 						}else{
@@ -152,7 +156,8 @@
 		} 
 
 		public static function deconnexion(){
-			$_SESSION['projet_user_connected']->disconnect();
+            $TITLE = "Accueil";
+            $_SESSION['projet_user_connected']->disconnect();
 			$controller = 'accueil';
 			$page = 'index';
 			require File::build_path(['view', 'view.php']);
