@@ -1,12 +1,13 @@
 <?php
+
 $CSS = [
         'view/css/header.css',
     'view/css/style1.css',
 ];
 $JS = [];
 $LIBRAIRIES = [];
-
-	require File::build_path(['view', 'html', 'html_start.php']);
+	
+	require_once File::build_path(['view', 'html', 'html_start.php']);
 	require File::build_path(['view', 'html', 'header.php']);
 	?>
 	<div class="main_container">
