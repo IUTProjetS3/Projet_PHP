@@ -2,6 +2,7 @@
 
 require_once(File::build_path(array("controller", "ControllerUtilisateur.php")));
 require_once(File::build_path(array("controller", "ControllerAccueil.php")));
+require_once(File::build_path(array("controller", "ControllerLivre.php")));
 session_start();
 
 $action = 'accueil';
