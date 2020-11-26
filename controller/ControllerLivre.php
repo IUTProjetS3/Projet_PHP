@@ -35,10 +35,11 @@ class ControllerLivre {
 			$create = Livre::save($data);
 
 			if($create){
+
 				$tab_l = Livre::selectAll();
 				$page = "created";
 				$controller = "livre";
-				$TITLE = "Liste des livres";
+				$TITLE = "Livre créé";
 				require File::build_path(['view', 'view.php']);
 			}
 		}

@@ -1,2 +1,2 @@
 <p>Livre créé</p>
-<?php require File::build_path(['view', 'livre', 'list.php']); ?>
+<a href="index.php">Retour à l'Accueil</a>
