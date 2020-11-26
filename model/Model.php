@@ -32,6 +32,7 @@ class Model {
 
   public static function selectAll(){
     $table_name = 'projet_'.static::$object;
+
     $class_name = ucfirst(static::$object);
     try{
         $rep = self::$pdo->query("SELECT * FROM $table_name");
@@ -46,6 +47,7 @@ class Model {
       die();
 
     }
+    
     if(empty($tab))
       return false;
     return $tab;

@@ -5,7 +5,7 @@ $CSS = [
 ];
 $JS = [];
 $LIBRAIRIES = [];
-$TITLE = "Accueil";
+
 	require File::build_path(['view', 'html', 'html_start.php']);
 	require File::build_path(['view', 'html', 'header.php']);
 	?>

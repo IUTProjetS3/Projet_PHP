@@ -1,11 +1,3 @@
-<?php
-/*
-require_once 'Model/Model.php';
-require_once 'Model/Utilisateur.php';
-
-session_start();
-*/
-?>
 
 <!DOCTYPE html>
 <html>
