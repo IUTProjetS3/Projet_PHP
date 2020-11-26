@@ -1,8 +1,12 @@
 <div>
 
 
-    <p><?= $_SESSION['projet_user_connected']->getAttr('prenomUtilisateur') ?></p>
-    <p><?= $_SESSION['projet_user_connected']->getAttr('nomUtilisateur') ?></p>
-    <p><?= $_SESSION['projet_user_connected']->getAttr('mailUtilisateur') ?></p>
-    <p><?= $_SESSION['projet_user_connected']->getAttr('role') ?></p>
+    <form>
+        <input type="text" placeholder="<?= $_SESSION['projet_user_connected']->getAttr('prenomUtilisateur') ?>">
+        <input type="text" placeholder="<?= $_SESSION['projet_user_connected']->getAttr('nomUtilisateur') ?>">
+        <input type="text" placeholder="<?= $_SESSION['projet_user_connected']->getAttr('mailUtilisateur') ?>">
+    </form>
+
+
+    <button>Enregistrer</button>
 </div>
