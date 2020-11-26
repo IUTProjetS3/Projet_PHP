@@ -17,7 +17,8 @@
                 <?php else : ?>
                     <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
                 <?php endif; ?>
-                <p>Commandes</p>
+                <a href="index.php?action=panier&controller=utilisateur">Panier</a>
+                <a href="index.php?action=commandes&controller=utilisateur">Commandes</a>
                 <?php if(isset($_SESSION['projet_user_connected'])):?>
                     <a href="index.php?action=deconnexion&controller=utilisateur">Déconnexion</a>
                 <?php endif; ?>

@@ -7,6 +7,22 @@
 	class ControllerUtilisateur
 	{
 
+        public static function commandes(){
+            $controller = "achat";
+            $page = "commandes";
+            $commandes = ["Pas de commandes"];
+
+            require File::build_path(["view", "view.php"]);
+        }
+
+        public static function panier(){
+            $controller = "achat";
+            $page = "panier";
+            $panier = ["Aucun article sélectionner"];
+
+            require File::build_path(["view", "view.php"]);
+        }
+
 	    public static function profil(){
 	        $controller = "profil";
 	        $page = "profil";
