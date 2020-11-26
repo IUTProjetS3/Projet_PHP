@@ -8,7 +8,7 @@ require_once(File::build_path(array("controller", "ControllerLivre.php")));
 
 session_start();
 
-$action = 'accueil';
+$action = 'readAll';
 if(isset($_GET['action'])){
 	if(!empty($_GET['action']))
 		$action = $_GET['action'];
@@ -17,7 +17,7 @@ if(isset($_GET['action'])){
 		$action = $_POST['action'];
 }
 
-$controller = 'accueil';
+$controller = 'livre';
 if(isset($_GET['controller'])){
 	if(!empty($_GET['controller']))
 		$controller = $_GET['controller'];
