@@ -6,11 +6,11 @@
     </a>
     <input type="text" id="recherche" name="recherche" class="col-5" placeholder="Rechercher">
     <nav id="navigation" class="col-4">
-        <div id="panier" class="item box">
-            <img src="view/img/panier.png" alt="panier">
+        <div id="panier" class="item">
+            <p>Panier</p>
         </div>
-        <div id="profil" class="item box">
-            <img src="view/img/profil.png" alt="profil">
+        <div id="profil" class="item">
+            <p>Profil</p>
             <div id="nav_profil">
                 <p>Profil</p>
                 <p>Commandes</p>
