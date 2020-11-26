@@ -18,7 +18,9 @@
                     <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
                 <?php endif; ?>
                 <p>Commandes</p>
-                <a href="index.php?controller=utilisateur&action=modifierprofil?>">Modifier Profil</a>
+                <?php if(isset($_SESSION['projet_user_connected'])):?>
+                    <a href="index.php?action=deconnexion&controller=utilisateur">Déconnexion</a>
+                <?php endif; ?>
             </div>
         </div>
     </nav>

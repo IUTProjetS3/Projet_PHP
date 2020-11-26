@@ -1,8 +1,12 @@
 <div>
 
 
-    <p><?= $profil->getAttr('prenomUtilisateur') ?></p>
-    <p><?= $profil->getAttr('nomUtilisateur') ?></p>
-    <p><?= $profil->getAttr('mailUtilisateur') ?></p>
-    <p><?= $profil->getAttr('role') ?></p>
+    <form>
+        <input type="text" value="<?= $_SESSION['projet_user_connected']->getAttr('prenomUtilisateur') ?>">
+        <input type="text" value="<?= $_SESSION['projet_user_connected']->getAttr('nomUtilisateur') ?>">
+        <input type="text" value="<?= $_SESSION['projet_user_connected']->getAttr('mailUtilisateur') ?>">
+    </form>
+
+
+    <button>Enregistrer</button>
 </div>
