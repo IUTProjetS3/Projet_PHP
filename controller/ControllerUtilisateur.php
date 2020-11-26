@@ -36,7 +36,7 @@
 					if(filter_var($mail, FILTER_VALIDATE_EMAIL)){
 						if(strlen($mdp) >= 6){
 							if($mdp == $remdp){
-								Utilisateur::save(["nomUtilisateur" => $nom, "prenomUtilisateur" => $prenom, "mailUtilisateur" => $mail, "mdpUtilisateur" => password_hash($mdp, PASSWORD_BCRYPT));
+								Utilisateur::save(["nomUtilisateur" => $nom, "prenomUtilisateur" => $prenom, "mailUtilisateur" => $mail, "mdpUtilisateur" => password_hash($mdp, PASSWORD_BCRYPT)]);
 
 								//self::sendMail($mail);
 
