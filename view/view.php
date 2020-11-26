@@ -2,7 +2,7 @@
 
 $CSS = [
         'view/css/header.css',
-    'view/css/style1.css',
+    'view/css/style2.css',
 ];
 $JS = [];
 $LIBRAIRIES = [];
