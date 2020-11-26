@@ -7,7 +7,7 @@
     <input type="text" id="recherche" name="recherche" class="col-5" placeholder="Rechercher">
     <nav id="navigation" class="col-4">
         <div id="panier" class="item">
-            <p>Panier</p>
+            <a href="index.php?action=panier&controller=utilisateur">Panier</a>
         </div>
         <div id="profil" class="item">
             <p>Profil</p>
@@ -17,7 +17,7 @@
                 <?php else : ?>
                     <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
                 <?php endif; ?>
-                <p>Commandes</p>
+                <a href="index.php?action=commandes&controller=utilisateur">Commandes</a>
                 <?php if(isset($_SESSION['projet_user_connected'])):?>
                     <a href="index.php?action=deconnexion&controller=utilisateur">Déconnexion</a>
                 <?php endif; ?>

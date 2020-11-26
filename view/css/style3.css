@@ -13,6 +13,15 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main_container {
+    height: 90vh;
+    width: 100vw;
+    overflow: scroll;
 }
 
 a {
@@ -42,7 +51,7 @@ p {
 
 ::-webkit-scrollbar {									/* Scrollbars */
     width: 14px;
-    height: 14px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track-piece {						/* Fond */
@@ -59,8 +68,4 @@ p {
 }
 ::-webkit-scrollbar-thumb:hover {						/* Barre */
     -webkit-box-shadow: inset 0 0 0 1px #999999, inset 0 0 0 6px #999999;
-}
-
-.main_container{
-    margin-top: 65px;
 }

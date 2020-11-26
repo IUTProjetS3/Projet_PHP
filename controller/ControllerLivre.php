@@ -11,7 +11,7 @@ class ControllerLivre {
 		$tab_l = Livre::selectAll();
 		$page = "list";
 		$controller = "livre";
-		$TITLE = "Liste des livres";
+		$TITLE = "Accueil";
 		
 		require File::build_path(['view', "view.php"]);
 	}
