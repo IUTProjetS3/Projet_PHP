@@ -16,5 +16,9 @@ class ControllerLivre {
 		require File::build_path(['view', "view.php"]);
 	}
 
+	public static function create(){
+		
+	}
+
 
 }
