@@ -13,7 +13,6 @@ if(isset($_GET['action'])){
 		$action = $_POST['action'];
 }
 
-
 $controller = 'accueil';
 if(isset($_GET['controller'])){
 	if(!empty($_GET['controller']))
@@ -24,7 +23,6 @@ if(isset($_GET['controller'])){
 }
 
 $controller_class = "Controller".ucfirst($controller);
-
 
 if(class_exists($controller_class)){
 	if(in_array($action, get_class_methods($controller_class))){
@@ -37,7 +35,4 @@ if(class_exists($controller_class)){
 		$erreur = "Erreur lors du traitement !";
 		ControllerAccueil::error($erreur);
 	}
-
-
-
 ?>

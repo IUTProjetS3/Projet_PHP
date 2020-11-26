@@ -1,16 +1,13 @@
 <?php
-
-	$CSS = [
-    'view/css/header.css',
+$CSS = [
+        'view/css/header.css',
     'view/css/style1.css',
 ];
 $JS = [];
 $LIBRAIRIES = [];
-
-
+$TITLE = "Accueil";
 	require File::build_path(['view', 'html', 'html_start.php']);
 	require File::build_path(['view', 'html', 'header.php']);
-
 	?>
 	<div class="main_container">
 	<?php
@@ -24,5 +21,4 @@ $LIBRAIRIES = [];
 	</div>
 	<?php
 	require File::build_path(['view', 'html', 'html_end.php']);
-
 ?>
