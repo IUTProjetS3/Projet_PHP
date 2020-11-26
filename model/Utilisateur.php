@@ -1,13 +1,16 @@
 <?php
 require_once File::build_path(['model','Model.php']);
 
-class Utilisateur
+class Utilisateur extends Model
 {   
         private $nomUtilisateur;
         private $prenomUtilisateur;	
         private $mailUtilisateur;	
         private $idUtilisateur;	
         private $role;
+
+        protected static $objet = "utilisateur";
+        protected static $primary = "idUtilisateur";
             
         public function setAttr($attr, $value){
             $this->$attr = $value;
@@ -60,36 +63,7 @@ class Utilisateur
               return $tab_user[0];
         }
       
-        
-
-         public static function save($nomUtilisateur, $prenomUtilisateur, $mail, $mdp_crypt) {
-              try {
-                  $sql = "INSERT INTO projet_utilisateur (nomUtilisateur, prenomUtilisateur, mailUtilisateur, mdpUtilisateur
-                  ) VALUES (:nomUtilisateur, :prenomUtilisateur, :mailUtilisateur, :mdpUtilisateur)";
-                  // Préparation de la requête
-                  $req_prep = Model::$pdo->prepare($sql);
-      
-                  $values = array(
-                      ":nomUtilisateur" => $nomUtilisateur,
-                      ":prenomUtilisateur" => $prenomUtilisateur,
-                      ":mailUtilisateur" => $mail,
-                      ":mdpUtilisateur" => $mdp_crypt,
-                      
-                  );
-                  // On donne les valeurs et on exécute la requête   
-                  $req_prep->execute($values);
-          
-        
-              } catch (PDOException $e) {
-                  if (Conf::getDebug()) {
-                      echo $e->getMessage(); // affiche un message d'erreur
-                  } else {
-                      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-                  }
-                  die();
-              }
-          }
-
+    
           public static function exist($mail){
             try {
                   $sql = "SELECT idUtilisateur FROM projet_utilisateur WHERE mailUtilisateur=:m";
