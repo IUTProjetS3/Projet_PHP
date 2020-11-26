@@ -1,18 +1,30 @@
-<form method="post" action="index.php" >
+<form method="post" action="index.php" enctype="multipart/form-data">
   <fieldset>
     <legend>Ajouter un livre :</legend>
-      <label for="id_mail">Mail</label> :
-      <input type="email" placeholder="Ex : jean@gmail.com" name="mail" id="id_mail" value="<?= htmlspecialchars($data['mail']) ?>" />
+      <label for="id_nom">Nom</label> :
+      <input type="text" name="nom" id="id_nom"/>
     </p>
     <p>
-      <label for="id_mdp">Mot de passe</label> :
-      <input type="password" name="mdp" id="id_mdp"/>
+      <label for="id_desc">Description</label> :
+      <textarea name="description" id="id_desc" cols="10" rows="10"></textarea>
     </p>
+    <p>
+      <label for="id_prix">Prix</label> :
+      <input type="number" name="prix" id="id_prix">
+    </p>
+    <p>
+      <label for="id_stock">Stock</label> :
+      <input type="number" name="stock" id="id_stock">
+    </p>
+    <p>
+      <label for="id_image">Image</label> :
+      <input type="file" id="id_image" name="image">
+    </p>
+
     <p>
       <input type="submit" value="Envoyer" />
     </p>
-    <input type="hidden" name='action' value='connecte'>
-    <input type="hidden" name='controller' value="utilisateur">
+    <input type="hidden" name='action' value='created'>
+    <input type="hidden" name='controller' value="livre">
   </fieldset> 
-  <a href="index.php?action=inscription&controller=utilisateur">Inscription</a>
 </form>
