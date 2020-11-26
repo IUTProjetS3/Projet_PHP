@@ -12,7 +12,7 @@
         <div id="profil" class="item">
             <p>Profil</p>
             <div id="nav_profil">
-                <a href="profil.php?controller=profil&action=profil">Profil</a>
+                <a href="index.php?controller=utilisateur&action=profil&id=<?=$_SESSION['projet_user_connected']->getAttr("idUtilisateur")?>">Profil</a>
                 <p>Commandes</p>
             </div>
         </div>

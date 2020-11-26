@@ -9,6 +9,8 @@
 	    public static function profil(){
 	        $controller = "profil";
 	        $page = "profil";
+	        $idprofil = $_GET['id'];
+	        $profil = Utilisateur::select($idprofil);
 
 	        require File::build_path(["view", "view.php"]);
         }

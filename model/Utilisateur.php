@@ -9,8 +9,8 @@ class Utilisateur extends Model
         private $idUtilisateur;	
         private $role;
 
-        protected static $objet = "utilisateur";
-        protected static $primary = "idUtilisateur";
+        protected static $object = "utilisateur";
+        protected static $primaray = "idUtilisateur";
             
         public function setAttr($attr, $value){
             $this->$attr = $value;
