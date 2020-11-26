@@ -12,13 +12,13 @@
         <div id="profil" class="item">
             <p>Profil</p>
             <div id="nav_profil">
-                <?if(isset($_SESSION['projet_user_connected'])):?>
+                <?php if(isset($_SESSION['projet_user_connected'])):?>
+                    <a href="index.php?controller=utilisateur&action=profil&id=<?=$_SESSION['projet_user_connected']->getAttr("idUtilisateur")?>">Profil</a>
+                <?php else : ?>
                     <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
-                <?else : ?>
-                <a href="index.php?controller=utilisateur&action=profil&id=<?=$_SESSION['projet_user_connected']->getAttr("idUtilisateur")?>">Profil</a>
-                <?endif; ?>
+                <?php endif; ?>
                 <p>Commandes</p>
-                <a href="index.php?controller=utilisateur&action=modifierprofil?>">Profil</a>
+                <a href="index.php?controller=utilisateur&action=modifierprofil?>">Modifier Profil</a>
             </div>
         </div>
     </nav>
