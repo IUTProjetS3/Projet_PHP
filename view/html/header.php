@@ -12,7 +12,7 @@
         <div id="profil" class="item">
             <p>Profil</p>
             <div id="nav_profil">
-                <p>Profil</p>
+                <a href="profil.php?controller=profil&action=profil">Profil</a>
                 <p>Commandes</p>
             </div>
         </div>
