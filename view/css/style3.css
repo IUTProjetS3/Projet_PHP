@@ -13,6 +13,15 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main_container {
+    height: 90vh;
+    width: 100vw;
+    overflow: scroll;
 }
 
 a {

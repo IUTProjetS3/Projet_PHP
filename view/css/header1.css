@@ -1,9 +1,6 @@
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 95%;
-    height: 64px;
+    height: 10vh;
     border-bottom: solid lightgrey 0.05em;
     display: flex;
     flex-direction: row;
