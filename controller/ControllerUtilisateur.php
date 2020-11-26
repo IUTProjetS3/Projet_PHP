@@ -14,6 +14,13 @@
 
 	        require File::build_path(["view", "view.php"]);
         }
+
+        public static function modifierprofil(){
+            $controller = "profil";
+            $page = "modifierprofil";
+
+            require File::build_path(["view", "view.php"]);
+        }
 		
 		public static function inscription(){
 			$controller = "utilisateur";
