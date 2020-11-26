@@ -18,7 +18,6 @@
                     <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
                 <?php endif; ?>
                 <p>Commandes</p>
-                <a href="index.php?controller=utilisateur&action=modifierprofil?>">Modifier Profil</a>
             </div>
         </div>
     </nav>
