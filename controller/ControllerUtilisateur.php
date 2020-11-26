@@ -8,6 +8,7 @@
 	{
 
         public static function commandes(){
+            $TITLE = "Commandes";
             $controller = "achat";
             $page = "commandes";
             $commandes = ["Pas de commandes"];
@@ -16,6 +17,7 @@
         }
 
         public static function panier(){
+            $TITLE = "Panier";
             $controller = "achat";
             $page = "panier";
             $panier = ["Aucun article sélectionner"];
@@ -24,7 +26,8 @@
         }
 
 	    public static function profil(){
-	        $controller = "profil";
+            $TITLE = "Profil";
+            $controller = "profil";
 	        $page = "profil";
 	        $idprofil = $_GET['id'];
 	        $profil = Utilisateur::select($idprofil);
@@ -33,6 +36,7 @@
         }
 
         public static function modifierprofil(){
+            $TITLE = "Modifier Profil";
             $controller = "profil";
             $page = "modifierprofil";
 
@@ -40,7 +44,8 @@
         }
 		
 		public static function inscription(){
-			$controller = "utilisateur";
+            $TITLE = "Inscription";
+            $controller = "utilisateur";
 			$page = "inscription";
 			$data['nom'] = isset($data['nom']) ? $data['nom'] : "";
 			$data['prenom'] = isset($data['prenom']) ? $data['prenom'] : "";
@@ -50,7 +55,8 @@
 		}
 
 		public static function connexion(){
-			$controller = "utilisateur";
+            $TITLE = "Connexion";
+            $controller = "utilisateur";
 			$page = "connexion";
 			$data['mail'] = isset($data['mail']) ? $data['mail'] : "";
 

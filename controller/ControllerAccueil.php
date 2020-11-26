@@ -7,7 +7,9 @@
 	{
 		
 		public static function accueil(){
-			$controller = "accueil";
+            $TITLE = "Accueil";
+
+            $controller = "accueil";
 			$page = "index";
 			$TITLE = "Accueil";
 			require File::build_path(["view", "view.php"]);
