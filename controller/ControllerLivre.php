@@ -6,13 +6,14 @@ class ControllerLivre {
 
 
 
-	public function readAll(){
-		
+	public static function readAll(){
+
 		$tab_l = Livre::selectAll();
 		$page = "list";
 		$controller = "livre";
 		$TITLE = "Liste des livres";
-		File::build_path(['view', "view.php"]);
+		
+		require File::build_path(['view', "view.php"]);
 	}
 
 
