@@ -23,11 +23,19 @@ class ControllerLivre {
 		$controller = "livre";
 		$page = "detail";
 		$idlivre = $_GET['idlivre'];
-		$livre = Utilisateur::select($idlivre);
+		$livre = Livre::select($idlivre);
 
 		require File::build_path(["view", "view.php"]);
 	}	
 
+	// voir si c'est utile
+	private static function error(){
+		$TITLE = "erreur";
+		$controller = "livre";
+		$page = "error";
+	
+		require File::build_path(["view", "view.php"]);
+	}	
 
 		/*
 			$idprofil = $_GET['idlivre'];
