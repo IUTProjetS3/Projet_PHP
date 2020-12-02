@@ -22,7 +22,7 @@ class ControllerLivre {
 		$TITLE = "Livre numero";
 		$controller = "livre";
 		$page = "detail";
-		$idlivre = $_GET['idlivre'];
+		$idlivre = $_GET['idLivre'];
 		$livre = Livre::select($idlivre);
 
 		require File::build_path(["view", "view.php"]);
