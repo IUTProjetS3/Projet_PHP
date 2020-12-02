@@ -18,7 +18,7 @@ class ControllerLivre {
 		require File::build_path(['view', "view.php"]);
 	}
 
-	private static function read(){
+	public static function read(){
 		$TITLE = "Livre numero";
 		$controller = "livre";
 		$page = "detail";
@@ -29,7 +29,7 @@ class ControllerLivre {
 	}	
 
 	// voir si c'est utile
-	private static function error(){
+	public static function error(){
 		$TITLE = "erreur";
 		$controller = "livre";
 		$page = "error";
@@ -37,24 +37,7 @@ class ControllerLivre {
 		require File::build_path(["view", "view.php"]);
 	}	
 
-		/*
-			$idprofil = $_GET['idlivre'];
-			$idlibre = Livre::select($idlivre);
-			//$tab_l = Livre::getAttr(myGet('idLivre'))
-			$page = "detail";
-			$controller = "livre";
-			$TITLE = "nom du livre";
 
-			if (!$idlibre) {
-				require(File::build_path(array("view", "livre", "error.php")));
-				
-			}
-			else{
-				require(File::build_path(array("view", "livre", "detail.php")));
-				
-			} */
-			
-		//}
 
 	public static function create(){
 		$page = "create";
