@@ -5,6 +5,8 @@ require_once File::build_path(['model', 'Livre.php']);
 class ControllerLivre {
 
 
+	
+
 
 	public static function readAll(){
 
@@ -15,6 +17,36 @@ class ControllerLivre {
 		
 		require File::build_path(['view', "view.php"]);
 	}
+
+	private static function read(){
+		$TITLE = "Livre numero";
+		$controller = "livre";
+		$page = "detail";
+		$idlivre = $_GET['idlivre'];
+		$livre = Utilisateur::select($idlivre);
+
+		require File::build_path(["view", "view.php"]);
+	}	
+
+
+		/*
+			$idprofil = $_GET['idlivre'];
+			$idlibre = Livre::select($idlivre);
+			//$tab_l = Livre::getAttr(myGet('idLivre'))
+			$page = "detail";
+			$controller = "livre";
+			$TITLE = "nom du livre";
+
+			if (!$idlibre) {
+				require(File::build_path(array("view", "livre", "error.php")));
+				
+			}
+			else{
+				require(File::build_path(array("view", "livre", "detail.php")));
+				
+			} */
+			
+		//}
 
 	public static function create(){
 		$page = "create";

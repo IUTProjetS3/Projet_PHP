@@ -15,7 +15,8 @@ class Utilisateur extends Model
         public function setAttr($attr, $value){
             $this->$attr = $value;
         }
-   public function getAttr($attr){
+        
+        public function getAttr($attr){
             return $this->$attr;
         }
             

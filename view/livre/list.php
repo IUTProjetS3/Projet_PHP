@@ -10,7 +10,7 @@ if($tab_l) : ?>
 			<a href="?controller=livre&action=read&idLivre=<?= rawurlencode($l->getAttr('idLivre')) ?>"><?= $l->getAttr('nom') ?></a></li>
 	<?php endforeach; ?>
 	</ul>
-<?php else : ?>
+<?php else : ?> 
 	<p> Aucun livre trouvé </p>
 <?php endif; ?>
 
