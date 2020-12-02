@@ -28,7 +28,22 @@ class ControllerLivre {
 		require File::build_path(["view", "view.php"]);
 	}	
 
-	// voir si c'est utile
+	public static function panier(){ //Début à finir
+		if(!isset($_SESSION["panier"])){
+            $_SESSION["panier"]=array();
+        }
+		$idlivre = $_GET['idLivre'];
+        $livre = Livre::select($idlivre);
+
+        array_push($livre, $_SESSION['panier']);
+	
+		$controller='livre'; 
+		$view='list'; 
+		$pagetitle='livre';     
+		require File::build_path(["view", "view.php"]);  //"redirige" vers la vue
+	}
+
+	// A finir mais obligatoire
 	public static function error(){
 		$TITLE = "erreur";
 		$controller = "livre";

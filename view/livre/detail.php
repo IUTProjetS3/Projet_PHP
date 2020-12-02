@@ -12,6 +12,9 @@
         <p> Prix : <?= $livre->getAttr("prix") ?> €</p>
         <p> Les avis : <?= $livre->getAttr("avis") ?></p>
     </div>
-    <button>Ajouter au Panier</button>
+    <a href="?controller=livre&action=panier&idLivre=<?= rawurlencode($livre->getAttr('idLivre')) ?>" > 
+    <input type="button" value="Ajouter au Panier"> </a>
+    
+    
 
 </div>
