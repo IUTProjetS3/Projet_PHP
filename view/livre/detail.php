@@ -9,7 +9,7 @@
         <p> Titre : <?= $livre->getAttr("nom") ?></p>
         <p> Description : </p>
         <p><?= $livre->getAttr("description") ?></p>
-        <p> Prix : <?= $livre->getAttr("prix") ?></p>
+        <p> Prix : <?= $livre->getAttr("prix") ?> €</p>
         <p> Les avis : <?= $livre->getAttr("avis") ?></p>
     </div>
     <button>Ajouter au Panier</button>
