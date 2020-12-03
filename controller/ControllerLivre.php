@@ -29,17 +29,15 @@ class ControllerLivre {
 	}	
 
 	public static function panier(){ //Début à finir
-		if(!isset($_SESSION["panier"])){
-            $_SESSION["panier"]=array();
-        }
 		$idlivre = $_GET['idLivre'];
         $livre = Livre::select($idlivre);
 
-        array_push($livre, $_SESSION['panier']);
+        array_push($_SESSION['panier'], $livre);
 	
 		$controller='livre'; 
-		$view='list'; 
-		$pagetitle='livre';     
+		$page='detail'; 
+		$TITLE='livre';
+
 		require File::build_path(["view", "view.php"]);  //"redirige" vers la vue
 	}
 
