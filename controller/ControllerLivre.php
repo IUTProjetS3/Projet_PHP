@@ -5,7 +5,7 @@ require_once File::build_path(['model', 'Livre.php']);
 class ControllerLivre {
 
 
-	
+	//Il faut ajouter deleted et update et error
 
 
 	public static function readAll(){
