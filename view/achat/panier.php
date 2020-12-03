@@ -7,6 +7,6 @@ foreach ($_SESSION['panier'] as $l) :
     <p><?= $livre->getAttr('nom')  ?> : <?= $l[1] ?></p>
 <?php endforeach; ?>
 <p>Montant Total : <?= $tarif ?> €</p>
-<a href="?controller=commande&action=commande&idLivre=<?= rawurlencode($livre->getAttr('idLivre')) ?>" >
+<a href="?controller=commande&action=commander&tarif=<?= $tarif ?>" >
     Passez Commande
 </a>
