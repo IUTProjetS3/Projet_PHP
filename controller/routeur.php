@@ -6,6 +6,9 @@ require_once(File::build_path(array("controller", "ControllerAccueil.php")));
 
 require_once(File::build_path(array("controller", "ControllerLivre.php")));
 
+require_once(File::build_path(array("controller", "ControllerCommande.php")));
+
+
 session_start();
 
 $action = 'readAll';

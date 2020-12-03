@@ -15,6 +15,6 @@ class Commande extends Model
     }
 
     public static function getAllCommandes($id){
-        // RECUPERER >TOUTES LES COMMANDES => SI VIDE = retourne ["Pas de commandes"]
+        // RECUPERER >TOUTES LES COMMANDES => SI VIDE = retourne []
     }
 }

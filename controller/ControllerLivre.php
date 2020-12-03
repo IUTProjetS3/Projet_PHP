@@ -38,7 +38,6 @@ class ControllerLivre {
             $_SESSION['panier'] = [[$idlivre, $quantite]];
         }
         else {
-            var_dump("coucou");
             $exist = false;
             $i = 0;
             foreach ($_SESSION['panier'] as $l) {
@@ -46,13 +45,10 @@ class ControllerLivre {
                     $_SESSION['panier'][$i][1]=$_SESSION['panier'][$i][1]+$quantite;
                     //$l[1] = $l[1]+$quantite;
                     $exist = true;
-                    var_dump("ce livre est deja dans le panier");
-                    var_dump("ajoute une quantite");
                 }
                 $i++;
             }
             if (!$exist) {
-                var_dump("ajoute un livre");
                 array_push($_SESSION['panier'], [$idlivre, $quantite]);
             }
         }
