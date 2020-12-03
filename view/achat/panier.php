@@ -1,4 +1,12 @@
-<?php foreach ($panier as $p) : ?>
-    <p><?= $p ?></p>
+<?php
+$tarif = 0;
+foreach ($_SESSION['panier'] as $l) :
+    $livre = Livre::select($l[0]);
+    $tarif = $tarif + $livre->getAttr('prix')*$l[1];
+    ?>
+    <p><?= $livre->getAttr('nom')  ?> : <?= $l[1] ?></p>
 <?php endforeach; ?>
-<button>Passer Commande</button>
+<p>Montant Total : <?= $tarif ?> €</p>
+<a href="?controller=commande&action=commande&idLivre=<?= rawurlencode($livre->getAttr('idLivre')) ?>" >
+    Passez Commande
+</a>

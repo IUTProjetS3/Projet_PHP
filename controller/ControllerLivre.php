@@ -30,9 +30,32 @@ class ControllerLivre {
 
 	public static function panier(){ //Début à finir
 		$idlivre = $_GET['idLivre'];
-        $livre = Livre::select($idlivre);
-
-        array_push($_SESSION['panier'], $livre);
+		$quantite = 1;
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        if(!isset($_SESSION['panier'])) {
+            $_SESSION['panier'] = [[$idlivre, $quantite]];
+        }
+        else {
+            var_dump("coucou");
+            $exist = false;
+            $i = 0;
+            foreach ($_SESSION['panier'] as $l) {
+                if ($idlivre==$l[0]) {
+                    $_SESSION['panier'][$i][1]=$_SESSION['panier'][$i][1]+$quantite;
+                    //$l[1] = $l[1]+$quantite;
+                    $exist = true;
+                    var_dump("ce livre est deja dans le panier");
+                    var_dump("ajoute une quantite");
+                }
+                $i++;
+            }
+            if (!$exist) {
+                var_dump("ajoute un livre");
+                array_push($_SESSION['panier'], [$idlivre, $quantite]);
+            }
+        }
 	
 		$controller='livre'; 
 		$page='detail'; 

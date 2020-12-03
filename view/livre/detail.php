@@ -13,7 +13,8 @@
         <p> Les avis : <?= $livre->getAttr("avis") ?></p>
     </div>
     <a href="?controller=livre&action=panier&idLivre=<?= rawurlencode($livre->getAttr('idLivre')) ?>" > 
-    <input type="button" value="Ajouter au Panier"> </a>
+        <input type="button" value="Ajouter au Panier">
+    </a>
     
     <!-- if(Session::is_admin()){                   A faire
     			echo '<a href=index.php?action=delete&id='.rawurlencode($v->getId()).'>supprimer le produit</a> <br>';
