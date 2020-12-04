@@ -28,7 +28,46 @@ class ControllerLivre {
 		require File::build_path(["view", "view.php"]);
 	}	
 
-	public static function panier(){ //Début à finir
+	public static function delete(){
+        if(Session::is_admin()){
+			$idlivre = $_GET['idLivre'];
+			Livre::delete($idlivre);
+			$tab_l = Livre::selectAll();
+			$controller='livre'; 
+			$page='deleted'; 
+			$TITLE='supprimé';     //appel au modèle pour gerer la BD
+			require File::build_path(['view', "view.php"]);
+        }
+        else{ // MARCHE PAS adrien tu pourras voir ça ?
+			$tab_l = Livre::selectAll();
+			$page = "list";
+			$controller = "livre";
+			$TITLE = "Accueil";
+			$erreur = "Vous n'etes pas Admin"
+			require File::build_path(['view', "view.php"]);
+        }
+	}
+	
+	public static function update(){ // A finir
+        if(Session::is_admin()){
+			$im=myGet('id');
+			$v=ModelProduit::select($im);
+			$isUpdate=true;
+			$controller='livre'; 
+			$page='update'; 
+			$TITLE = 'mise à jour de produit';     //appel au modèle pour gerer la BD
+			require File::build_path(['view', "view.php"]); //"redirige" vers la vue
+        }
+        else{
+			$tab_l = Livre::selectAll();
+			$page = "list";
+			$controller = "livre";
+			$TITLE = "Accueil";
+			require File::build_path(['view', "view.php"]);
+        }
+    }
+
+	public static function panier(){ 
 		$idlivre = $_GET['idLivre'];
 		$quantite = 1;
         if (!isset($_SESSION)) {
