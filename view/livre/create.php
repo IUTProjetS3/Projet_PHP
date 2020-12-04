@@ -16,10 +16,10 @@
       <label for="id_stock">Stock</label> :
       <input type="number" name="stock" id="id_stock">
     </p>
-    <p>
+    <!-- <p>
       <label for="id_image">Image</label> :
       <input type="file" id="id_image" name="image">
-    </p>
+    </p> -->
 
     <p>
       <input type="submit" value="Envoyer" />

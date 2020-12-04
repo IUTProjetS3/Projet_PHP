@@ -82,7 +82,7 @@ class Model {
     return $tab_elem[0];
   }
 
-  public static function update($data){
+  public static function update($data, $notkey = []){
     $table_name = 'projet_'.static::$object;
     $class_name = ucfirst(static::$object);
      $primary_key = static::$primary;
@@ -92,8 +92,10 @@ class Model {
         $set = "";
         $exe = [];
         foreach ($data as $key => $value) {
-          $set .= $key."=:".$key.",";
-          $exe[$key] = $value;
+          if(!in_array($key, $notkey)){
+            $set .= $key."=:".$key.",";
+            $exe[$key] = $value;
+          }
         }
         $set = rtrim($set, ",");
 
@@ -113,7 +115,7 @@ class Model {
   }
 
 
-  public static function save($data){
+  public static function save($data, $notkey = []){
       $table_name = 'projet_'.static::$object;
       $created = true;
       try{
@@ -122,9 +124,11 @@ class Model {
         $values = "";
         $exe = [];
         foreach ($data as $key => $value) {
-          $insert .= $key.",";
-          $values .= ":".$key.",";
-          $exe[$key] = $value;
+          if(!in_array($key, $notkey)){
+            $insert .= $key.",";
+            $values .= ":".$key.",";
+            $exe[$key] = $value;
+          }
         }
         $insert = rtrim($insert, ",");
         $values = rtrim($values, ",");

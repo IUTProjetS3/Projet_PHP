@@ -15,6 +15,7 @@ if (isset($_SESSION['panier'])) {
         <a href="?controller=commande&action=commander">
             Passez Commande
         </a>
+        <a href="?controller=commande&action=viderPanier">Vider le Panier</a>
 <?php
     }
 }

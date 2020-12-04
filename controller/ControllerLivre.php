@@ -67,7 +67,14 @@ class ControllerLivre {
 	
 	public static function updated(){ //A finir 
         if(Session::is_admin()){
-        
+        	if(isset($_POST)){
+        		//A envoyer à la fonction le tableau et un tableau des clés qu'on ne veut pas enregistrer
+        		Livre::update($_POST, ['action', 'controller']);
+        		$page = "updated";
+        		$controller = "livre";
+        		$TITLE = "Livre modifié";
+        		require File::build_path(['view', 'view.php']);
+        	}
         }
         else{
             $tab_l = Livre::selectAll();
@@ -79,35 +86,45 @@ class ControllerLivre {
     }
 
 	public static function panier(){ 
-		$idlivre = $_GET['idLivre'];
-		$quantite = 1;
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        if(!isset($_SESSION['panier'])) {
-            $_SESSION['panier'] = [[$idlivre, $quantite]];
-        }
-        else {
-            $exist = false;
-            $i = 0;
-            foreach ($_SESSION['panier'] as $l) {
-                if ($idlivre==$l[0]) {
-                    $_SESSION['panier'][$i][1]=$_SESSION['panier'][$i][1]+$quantite;
-                    //$l[1] = $l[1]+$quantite;
-                    $exist = true;
-                }
-                $i++;
-            }
-            if (!$exist) {
-                array_push($_SESSION['panier'], [$idlivre, $quantite]);
-            }
-        }
-	
-		$controller='livre'; 
-		$page='detail'; 
-		$TITLE='livre';
+		$idlivre = $_POST['idLivre'];
+		$quantite = intval($_POST['quantite']);
+		$livre = Livre::select($idlivre);
+		if((intval($livre->getAttr("stock"))-$quantite) >= 0){
+	        if (!isset($_SESSION)) {
+	            session_start();
+	        }
+	        if(!isset($_SESSION['panier'])) {
+	            $_SESSION['panier'] = [[$idlivre, $quantite]];
+	        }
+	        else {
+	            $exist = false;
+	            $i = 0;
+	            foreach ($_SESSION['panier'] as $l) {
+	                if ($idlivre==$l[0]) {
+	                    $_SESSION['panier'][$i][1]=$_SESSION['panier'][$i][1]+$quantite;
+	                    //$l[1] = $l[1]+$quantite;
+	                    $exist = true;
+	                }
+	                $i++;
+	            }
+	            if (!$exist) {
+	                array_push($_SESSION['panier'], [$idlivre, $quantite]);
+	            }
+	        }
+		
+			$controller='livre'; 
+			$page='detail'; 
+			$TITLE='livre';
 
-		require File::build_path(["view", "view.php"]);  //"redirige" vers la vue
+			require File::build_path(["view", "view.php"]);  //"redirige" vers la vue
+		}else{
+			//self::error("?controller=livre&action=read&idLivre=".rawurlencode($livre->getAttr('idLivre')), "Quantité trop élévée");
+			$erreur = "Quantité trop élévée";
+			$controller = "livre";
+			$page = "detail";
+			$TITLE = "erreur";
+			require File::build_path(["view", "view.php"]);
+		}
 	}
 
 	// A finir (mais obligatoire ?)
@@ -115,7 +132,7 @@ class ControllerLivre {
 		$TITLE = "erreur";
 		$controller = "livre";
 		$page = "error";
-	
+		
 		require File::build_path(["view", "view.php"]);
 	}	
 
@@ -130,14 +147,8 @@ class ControllerLivre {
 
 	public static function created(){
 		if(isset($_POST)){
-			$data = [
-				"nom" => $_POST['nom'],
-				"description" => $_POST['description'],
-				"prix" => $_POST['prix'],
-				"stock" => $_POST['stock'],
-				"image" => self::createImage($_FILES['image'])
-			];
-			$create = Livre::save($data);
+			$data = $_POST;
+			$create = Livre::save($data, ['action', 'controller']);
 
 			if($create){
 
@@ -150,19 +161,19 @@ class ControllerLivre {
 		}
 	}
 
-	private static function createImage($image){
-		$tmpFilePath = $image['tmp_name'];
-		if ($tmpFilePath != ""){
-			$hashName = hash('sha256', $image['name'].rand());
-			$newFilePath = File::build_path(['view', 'img', 'livres']);
-			$extension = explode('.', $image['name'])[1];
-			if(!file_exists($newFilePath)) {
-				mkdir($newFilePath, 0777, true);
-			}
-			move_uploaded_file($tmpFilePath, $newFilePath."/".$hashName.".".$extension);
-			return $hashName.".".$extension;
-	}
-	return "";
-}
+	// private static function createImage($image){
+	// 	$tmpFilePath = $image['tmp_name'];
+	// 	if ($tmpFilePath != ""){
+	// 		$hashName = hash('sha256', $image['name'].rand());
+	// 		$newFilePath = File::build_path(['view', 'img', 'livres']);
+	// 		$extension = explode('.', $image['name'])[1];
+	// 		if(!file_exists($newFilePath)) {
+	// 			mkdir($newFilePath, 0777, true);
+	// 		}
+	// 		move_uploaded_file($tmpFilePath, $newFilePath."/".$hashName.".".$extension);
+	// 		return $hashName.".".$extension;
+	// }
+	// return "";
+	// }
 
 }
