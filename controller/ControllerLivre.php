@@ -38,12 +38,11 @@ class ControllerLivre {
 			$TITLE='supprimé';     //appel au modèle pour gerer la BD
 			require File::build_path(['view', "view.php"]);
         }
-        else{ // MARCHE PAS adrien tu pourras voir ça ?
+        else{
 			$tab_l = Livre::selectAll();
 			$page = "list";
 			$controller = "livre";
 			$TITLE = "Accueil";
-			$erreur = "Vous n'etes pas Admin"
 			require File::build_path(['view', "view.php"]);
         }
 	}
