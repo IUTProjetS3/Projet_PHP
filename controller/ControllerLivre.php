@@ -47,15 +47,14 @@ class ControllerLivre {
         }
 	}
 	
-	public static function update(){ // A finir
+	public static function update(){ 
         if(Session::is_admin()){
-			$im=myGet('id');
-			$v=ModelProduit::select($im);
-			$isUpdate=true;
-			$controller='livre'; 
-			$page='update'; 
-			$TITLE = 'mise à jour de produit';     //appel au modèle pour gerer la BD
-			require File::build_path(['view', "view.php"]); //"redirige" vers la vue
+			$TITLE = "Modifier Livre";
+			$controller = "livre";
+			$page = "update";
+			$idlivre = $_GET['idLivre'];
+		$livre = Livre::select($idlivre);
+			require File::build_path(["view", "view.php"]);
         }
         else{
 			$tab_l = Livre::selectAll();
@@ -63,6 +62,19 @@ class ControllerLivre {
 			$controller = "livre";
 			$TITLE = "Accueil";
 			require File::build_path(['view', "view.php"]);
+        }
+	}
+	
+	public static function updated(){ //A finir 
+        if(Session::is_admin()){
+        
+        }
+        else{
+            $tab_l = Livre::selectAll();
+			$page = "list";
+			$controller = "livre";
+			$TITLE = "Accueil";
+			require File::build_path(['view', "view.php"]);       
         }
     }
 
@@ -98,7 +110,7 @@ class ControllerLivre {
 		require File::build_path(["view", "view.php"]);  //"redirige" vers la vue
 	}
 
-	// A finir mais obligatoire
+	// A finir (mais obligatoire ?)
 	public static function error(){
 		$TITLE = "erreur";
 		$controller = "livre";
