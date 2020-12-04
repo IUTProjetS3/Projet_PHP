@@ -17,7 +17,7 @@
         <input disabled type="button" value="Ajouter au Panier">
         <?php else : ?>
         <input type="submit" value="Ajouter au Panier">
-        <input type="number" name="quantite" min="1" max="<?= htmlspecialchars($livre->getAttr('stock')) ?>">
+        <span>Quantité : </span><input type="number" name="quantite" min="1" max="<?= htmlspecialchars($livre->getAttr('stock')) ?>">
         <input type="hidden" name="controller" value="livre">
         <input type="hidden" name="action" value="panier">
         <input type="hidden" name="idLivre" value="<?= htmlspecialchars($livre->getAttr('idLivre')) ?>">
