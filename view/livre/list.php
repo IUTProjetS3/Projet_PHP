@@ -14,6 +14,6 @@ if($tab_l) : ?>
 	<p> Aucun livre trouvé </p>
 <?php endif; ?>
 
-<?php if(isset($_SESSION['projet_user_connected']) && $_SESSION['projet_user_connected']->getAttr('role') == "admin") : ?>
+<?php if(Session::is_admin()) : ?>
 	<a href="?controller=livre&action=create">Ajouter un livre</a>
 	<?php endif; ?>

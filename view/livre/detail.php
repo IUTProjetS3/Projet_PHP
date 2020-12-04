@@ -16,10 +16,12 @@
         <input type="button" value="Ajouter au Panier">
     </a>
     
-    <!-- if(Session::is_admin()){                   A faire
-    			echo '<a href=index.php?action=delete&id='.rawurlencode($v->getId()).'>supprimer le produit</a> <br>';
-
-    			echo '<a href=index.php?action=update&id='.rawurlencode($v->getId()).'>mettre à jour le produit </a> <br>'
-                -->
+    <?php if(Session::is_admin()) : ?>
+        <br>
+        <br>
+        <a href="?controller=livre&action=delete&idLivre=<?= rawurlencode($livre->getAttr('idLivre')) ?>">Supprimer le produit</a>
+        <br>
+        <a href="?controller=livre&action=update&idLivre=<?= rawurlencode($livre->getAttr('idLivre')) ?>">Modifier le produit</a>
+	<?php endif; ?>
 
 </div>

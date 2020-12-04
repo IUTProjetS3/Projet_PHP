@@ -8,6 +8,8 @@ require_once(File::build_path(array("controller", "ControllerLivre.php")));
 
 require_once(File::build_path(array("controller", "ControllerCommande.php")));
 
+require_once(File::build_path(array("lib", "Session.php")));
+
 
 session_start();
 
