@@ -11,7 +11,13 @@
         <p><?= htmlspecialchars($livre->getAttr("description")) ?></p>
         <p> Prix : <?= htmlspecialchars($livre->getAttr("prix")) ?> €</p>
         <p> Les avis : <?= htmlspecialchars($livre->getAttr("avis")) ?></p>
-        <p> Catégorie : <?= $livre->getAttr('categorie')->getAttr('idCategorie') == -1 ? 'Aucune' : htmlspecialchars($livre->getAttr('categorie')->getAttr('nom')) ?> </p>
+        <p> Catégorie :
+            <?php if($livre->getAttr('categorie')->getAttr('idCategorie') == -1): ?>
+                <span>Aucune</span>
+            <?php else : ?>
+         <a href="?action=readAllFromCat&controller=livre&idCategorie=<?= rawurlencode($livre->getAttr('categorie')->getAttr('idCategorie'))?>"><?=htmlspecialchars($livre->getAttr('categorie')->getAttr('nom')) ?></a>
+     <?php endif; ?>
+     </p>
     </div>
 
     <form method="post" action="index.php">
