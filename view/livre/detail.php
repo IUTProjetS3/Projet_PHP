@@ -11,18 +11,20 @@
         <p><?= htmlspecialchars($livre->getAttr("description")) ?></p>
         <p> Prix : <?= htmlspecialchars($livre->getAttr("prix")) ?> €</p>
         <p> Les avis : <?= htmlspecialchars($livre->getAttr("avis")) ?></p>
+        <p> Catégorie : <?= $livre->getAttr('categorie')->getAttr('idCategorie') == -1 ? 'Aucune' : htmlspecialchars($livre->getAttr('categorie')->getAttr('nom')) ?> </p>
     </div>
+
     <form method="post" action="index.php">
     <?php if($livre->getAttr('stock') == 0) : ?>
         <input disabled type="button" value="Ajouter au Panier">
-        <?php else : ?>
+    <?php else : ?>
         <input type="submit" value="Ajouter au Panier">
         <span>Quantité : </span><input type="number" name="quantite" min="1" max="<?= htmlspecialchars($livre->getAttr('stock')) ?>" value="1">
         <input type="hidden" name="controller" value="livre">
         <input type="hidden" name="action" value="panier">
         <input type="hidden" name="idLivre" value="<?= htmlspecialchars($livre->getAttr('idLivre')) ?>">
 
-<?php endif; ?>
+    <?php endif; ?>
     
     <?php if(Session::is_admin()) : ?>
         <br>

@@ -20,7 +20,14 @@
       <label for="id_image">Image</label> :
       <input type="file" id="id_image" name="image">
     </p> -->
-
+    <p>
+      <label for="id_categorie">Catégorie</label> :
+      <select name="categorie" id="id_categorie">
+        <?php foreach($categories as $cat) : ?>
+          <option value="<?= $cat->getAttr('idCategorie') ?>" <?= $_GET['idCategorie'] == $cat->getAttr('idCategorie') ? 'selected' : '' ?>><?= $cat->getAttr('nom') ?></option>
+        <?php endforeach; ?>
+      </select>
+    </p>
     <p>
       <input type="submit" value="Envoyer" />
     </p>

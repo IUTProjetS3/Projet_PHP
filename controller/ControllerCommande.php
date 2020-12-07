@@ -2,7 +2,7 @@
 
 require_once File::build_path(['model', 'Utilisateur.php']);
 require_once File::build_path(['model', 'Commande.php']);
-
+require_once File::build_path(['lib', 'Security.php']);
 
 
 class ControllerCommande
@@ -48,9 +48,7 @@ class ControllerCommande
         }
         $idCommande;
         do{
-            $numbytes = 8; // Because 32 digits hexadecimal = 16 bytes
-            $bytes = openssl_random_pseudo_bytes($numbytes); 
-            $idCommande   = strtoupper(bin2hex($bytes));
+            $idCommande   = strtoupper(Security::getRandomHex(8));
         }while(!Commande::createCommande($idCommande));
         Commande::linkUser($idCommande, $_SESSION['projet_user_connected']->getAttr('idUtilisateur'));
 

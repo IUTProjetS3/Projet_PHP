@@ -24,6 +24,15 @@
             </p>
 
             <p>
+              <label for="id_categorie">Catégorie</label> :
+              <select name="categorie" id="id_categorie">
+                <?php foreach($categories as $cat) : ?>
+                  <option value="<?= htmlspecialchars($cat->getAttr('idCategorie')) ?>" <?= $livre->getAttr('categorie')->getAttr('idCategorie') == $cat->getAttr('idCategorie') ? 'selected' : '' ?>><?= htmlspecialchars($cat->getAttr('nom')) ?></option>
+                <?php endforeach; ?>
+              </select>
+            </p>
+
+            <p>
               <input type="submit" value="Envoyer" />
             </p>
             <input type="hidden" name="idLivre" value="<?= htmlspecialchars($_GET['idLivre']) ?>">

@@ -1,6 +1,7 @@
 <?php
 	require_once File::build_path(['model', 'Utilisateur.php']);
-	
+	require_once File::build_path(['lib', 'Security.php']);
+
 	/**
 	 * Il faut ajouter deleted et update et error
 	 */
@@ -76,14 +77,18 @@
 					if(filter_var($mail, FILTER_VALIDATE_EMAIL)){
 						if(strlen($mdp) >= 6){
 							if($mdp == $remdp){
-								Utilisateur::save(["nomUtilisateur" => $nom, "prenomUtilisateur" => $prenom, "mailUtilisateur" => $mail, "mdpUtilisateur" => password_hash($mdp, PASSWORD_BCRYPT)]);
+								$nonce = Security::getRandomHex(16);
+								$facticeMail = "projetPHP-".explode("@", htmlspecialchars($mail))[0];
+			
 
-								//self::sendMail($mail);
+								Utilisateur::save(["nomUtilisateur" => $nom, "prenomUtilisateur" => $prenom, "mailUtilisateur" => $mail, "mdpUtilisateur" => password_hash($mdp, PASSWORD_BCRYPT), "nonce"=>$nonce]);
 
-								$_SESSION['projet_user_connected'] = Utilisateur::getUtilisateurByMail($mail);
-								$controller = "accueil";
-								$page = "index";
-                                $TITLE = "Accueil";
+								self::sendMail($facticeMail, $nonce, $mail);
+
+								
+								$controller = "utilisateur";
+								$page = "inscrire";
+                                $TITLE = "Validation inscription";
 
                                 require File::build_path(["view", "view.php"]);
 								}else{
@@ -126,12 +131,22 @@
 				if(!empty($mdp_crypt)){
 					if(password_verify($mdp, $mdp_crypt)){
 
-								$_SESSION['projet_user_connected'] = Utilisateur::getUtilisateurByMail($mail);
-								$controller = "accueil";
-								$page = "index";
-                        $TITLE = "Accueil";
+								$user = Utilisateur::getUtilisateurByMail($mail);
+								if($user->getAttr('nonce') == NULL){
+									$_SESSION['projet_user_connected'] = $user;
+									$controller = "accueil";
+									$page = "index";
+	                        		$TITLE = "Accueil";
 
-								require File::build_path(["view", "view.php"]);
+									require File::build_path(["view", "view.php"]);
+								}else{
+									$facticeMail = "projetPHP-".explode('@', htmlspecialchars($mail))[0];
+
+									$erreur = "Mail non validé <p>Veuillez le validé sur : <a href='http://yopmail.com?$facticeMail'>http://yopmail.com?$facticeMail</a></p>";
+
+								}
+
+								
 						}else{
 							$erreur = "Mail/Mot de passe inconnus.";
 						}
@@ -163,19 +178,39 @@
 			require File::build_path(['view', 'view.php']);
 		}
 
-		public static function sendMail($mail){
-			$to      = $mail;
-     		$subject = 'Inscription Site Librairie';
-		     $message = 'Bienvenue sur le site Librairie.com';
-		     $headers = 'From: noreply.librairie@gmail.com' . "\r\n" .
-		     'Reply-To: webmaster@example.com' . "\r\n" .
-		     'X-Mailer: PHP/' . phpversion();
+		public static function sendMail($facticeMail, $nonce, $mail){
 
-		     $success = mail($to, $subject, $message, $headers, "-fnoreply.librairie@gmail.com");
+			
+			$serveur = "https://webinfo.iutmontp.univ-montp2.fr/~seguraa/Projet_PHP"; //"localhost/projet_php";
+
+
+			$to      = $facticeMail."@yopmail.com";
+     		$subject = 'Inscription Site Librairie';
+		    $message = "<h2>Bienvenue sur le site Librairie.com<h2> <p>Valider mon mail : <a href='".$serveur."/?action=validation&controller=utilisateur&mail=".rawurlencode($mail)."&nonce=".$nonce."'/>".$serveur."/?action=validation&controller=utilisateur&mail=".htmlspecialchars($mail)."&nonce=".$nonce."</a></p>";
+		     
+
+		     $success = mail($to, $subject, $message);
 
 		     if (!$success) {
 				    $errorMessage = error_get_last()['message'];
 				}
 		}
+
+		public static function validation(){
+			if(self::validate()){
+				self::connexion();
+			}else{
+				echo 'error';
+			}
+		}
+
+
+		public static function validate(){
+        if(Utilisateur::validate($_GET['mail'], $_GET['nonce'])){
+            Utilisateur::changeNonce($_GET['mail']);
+            return true;
+        }
+        return false;
+    }
 	}
 ?>

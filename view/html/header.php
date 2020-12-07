@@ -4,7 +4,12 @@
             NOM DU PROJET
         </p>
     </a>
-    <input type="text" id="recherche" name="recherche" class="col-5" placeholder="Rechercher">
+    <form method="post" action="index.php">
+        <input type="text" id="recherche" name="recherche"  placeholder="(ex: Science-fiction, Iron Man)">
+        <input type="submit" value="Rechercher">
+        <input type="hidden" name="controller" value="livre">
+        <input type="hidden" name="action" value="rechercher">
+    </form>
     <nav id="navigation" class="col-4">
         <div id="panier" class="item">
             <a href="index.php?action=panier&controller=utilisateur">Panier</a>

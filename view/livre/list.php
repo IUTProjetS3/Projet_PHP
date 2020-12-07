@@ -1,5 +1,11 @@
 <?php 
 
+if(isset($_GET['idCategorie']) && $_GET['idCategorie'] >0){
+	$idCategorie = $_GET['idCategorie'];
+}else{
+	$idCategorie = -1;
+}
+
 if($tab_l) : ?>
 	<ul>
 	<?php foreach ($tab_l as $l) : ?>
@@ -14,6 +20,6 @@ if($tab_l) : ?>
 	<p> Aucun livre trouvé </p>
 <?php endif; ?>
 
-<?php if(Session::is_admin()) : ?>
-	<a href="?controller=livre&action=create">Ajouter un livre</a>
+<?php if(Session::is_admin() && !isset($_POST['recherche'])) : ?>
+	<a href="?controller=livre&action=create&idCategorie=<?= rawurlencode($idCategorie) ?>">Ajouter un livre</a>
 	<?php endif; ?>

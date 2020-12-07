@@ -8,6 +8,7 @@ class Utilisateur extends Model
         private $mailUtilisateur;	
         private $idUtilisateur;	
         private $role;
+        private $nonce;
 
         protected static $object = "utilisateur";
         protected static $primary = "idUtilisateur";
@@ -36,7 +37,7 @@ class Utilisateur extends Model
 
         public static function getUtilisateurByMail($mail){
           try {
-                  $sql = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, mailUtilisateur, role FROM projet_utilisateur WHERE mailUtilisateur = :m";
+                  $sql = "SELECT idUtilisateur, nomUtilisateur, prenomUtilisateur, mailUtilisateur, role, nonce FROM projet_utilisateur WHERE mailUtilisateur = :m";
                   // Préparation de la requête
                   $req_prep = Model::$pdo->prepare($sql);
       
@@ -119,6 +120,58 @@ class Utilisateur extends Model
               if(empty($tab_mdp))
                 return [];
               return $tab_mdp[0]['mdpUtilisateur'];
+          }
+
+          public static function validate($mail, $nonce){
+            try {
+                  $sql = "SELECT * FROM projet_utilisateur WHERE mailUtilisateur=:m AND nonce=:nonce";
+                  // Préparation de la requête
+                  $req_prep = Model::$pdo->prepare($sql);
+      
+                  $values = array(
+                      ":m" => $mail,
+                      ":nonce" => $nonce
+                      
+                  );
+                  // On donne les valeurs et on exécute la requête   
+                  $req_prep->execute($values);
+                  
+                  $tab_u = $req_prep->fetchAll();
+        
+              } catch (PDOException $e) {
+                  if (Conf::getDebug()) {
+                      echo $e->getMessage(); // affiche un message d'erreur
+                  } else {
+                      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                  }
+                  die();
+              }
+              if(empty($tab_u))
+                return false;
+              return true;
+          }
+
+          public static function changeNonce($mail){
+            try {
+                  $sql = "UPDATE projet_utilisateur SET nonce=NULL WHERE mailUtilisateur=:m";
+                  // Préparation de la requête
+                  $req_prep = Model::$pdo->prepare($sql);
+      
+                  $values = array(
+                      ":m" => $mail      
+                  );
+                  // On donne les valeurs et on exécute la requête   
+                  $req_prep->execute($values);
+                  
+                         
+              } catch (PDOException $e) {
+                  if (Conf::getDebug()) {
+                      echo $e->getMessage(); // affiche un message d'erreur
+                  } else {
+                      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                  }
+                  die();
+              }
           }
       
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once File::build_path(['model', 'Livre.php']);
+require_once File::build_path(['lib', 'Security.php']);
 
 class ControllerLivre {
 
@@ -24,7 +25,7 @@ class ControllerLivre {
 		$page = "detail";
 		$idlivre = $_GET['idLivre'];
 		$livre = Livre::select($idlivre);
-
+		$livre->getCategorie();
 		require File::build_path(["view", "view.php"]);
 	}	
 
@@ -53,7 +54,9 @@ class ControllerLivre {
 			$controller = "livre";
 			$page = "update";
 			$idlivre = $_GET['idLivre'];
-		$livre = Livre::select($idlivre);
+			$livre = Livre::select($idlivre);
+			$livre->getCategorie();
+			$categories = Categorie::selectAll();
 			require File::build_path(["view", "view.php"]);
         }
         else{
@@ -69,7 +72,8 @@ class ControllerLivre {
         if(Session::is_admin()){
         	if(isset($_POST)){
         		//A envoyer à la fonction le tableau et un tableau des clés qu'on ne veut pas enregistrer
-        		Livre::update($_POST, ['action', 'controller']);
+        		Livre::update($_POST, ['action', 'controller', 'categorie']);
+        		Livre::setCategorie($_POST['idLivre'], $_POST['categorie']);
         		$page = "updated";
         		$controller = "livre";
         		$TITLE = "Livre modifié";
@@ -111,7 +115,7 @@ class ControllerLivre {
 	                array_push($_SESSION['panier'], [$idlivre, $quantite]);
 	            }
 	        }
-		
+			$livre->getCategorie();
 			$controller='livre'; 
 			$page='detail'; 
 			$TITLE='livre';
@@ -139,6 +143,7 @@ class ControllerLivre {
 
 
 	public static function create(){
+		$categories = Categorie::selectAll();
 		$page = "create";
 		$controller = "livre";
 		$TITLE = "Ajouter un livre";
@@ -147,17 +152,27 @@ class ControllerLivre {
 
 	public static function created(){
 		if(isset($_POST)){
-			$data = $_POST;
-			$create = Livre::save($data, ['action', 'controller']);
+			
+			$idLivre;
+			do{
+				$idLivre = strtoupper(Security::getRandomHex(8));
+				$data = $_POST;
+				$data['idLivre'] = $idLivre;
 
-			if($create){
+
+			}while(!Livre::createLivre($data, ['action', 'controller', 'categorie']));
+
+			
+				
+			Livre::linkCategorie($idLivre, $_POST['categorie']);
+				
 
 				$tab_l = Livre::selectAll();
 				$page = "created";
 				$controller = "livre";
 				$TITLE = "Livre créé";
 				require File::build_path(['view', 'view.php']);
-			}
+			
 		}
 	}
 
@@ -175,5 +190,32 @@ class ControllerLivre {
 	// }
 	// return "";
 	// }
+
+
+	public static function rechercher(){
+		if(isset($_POST)){
+			$livres = Livre::selectFromSearch($_POST['recherche']);
+			$categories = Categorie::selectFromSearch($_POST['recherche']);
+
+			$page = 'recherche';
+			$controller = "livre";
+			$TITLE = "Recherche";
+			require File::build_path(['view', 'view.php']);
+
+		}
+	}
+
+	public static function readAllFromCat(){
+		if(isset($_GET['idCategorie']) && $_GET['idCategorie'] > 0){
+			$categorie = Categorie::select($_GET['idCategorie']);
+			$tab_l = Livre::selectFromCat($categorie->getAttr('idCategorie'));
+			
+			$page = 'listByCat';
+			$controller = 'livre';
+			$TITLE = 'Livres';
+			require File::build_path(['view', 'view.php']);
+
+		}
+	}
 
 }
