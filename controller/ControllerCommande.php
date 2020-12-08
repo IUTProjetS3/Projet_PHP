@@ -38,34 +38,39 @@ class ControllerCommande
 
     public static function commander(){
         if (!isset($_SESSION)){
-            var_dump("ya pas de session");
+            var_dump("Problème, nous vous invitons à recharger le site");
         }
         if (!isset($_SESSION['panier'])){
-            var_dump("ya pas de panier");
+            var_dump("Problème, nous vous invitons à recharger le site");
         }
         if (empty($_SESSION['panier'])){
-            var_dump("ya rien dans ton panier");
+            var_dump("Panier Vide");
         }
-        $idCommande;
-        do{
-            $idCommande   = strtoupper(Security::getRandomHex(8));
-        }while(!Commande::createCommande($idCommande));
-        Commande::linkUser($idCommande, $_SESSION['projet_user_connected']->getAttr('idUtilisateur'));
-
-
-        $tarif=0;
-        foreach ($_SESSION['panier'] as $l) {
-            $livre = Livre::select($l[0]);
-            Commande::addLivre($livre->getAttr('idLivre'), $idCommande, $l[1]);
-            Livre::update(['idLivre' => $livre->getAttr('idLivre'), 'stock' => ($livre->getAttr('stock')-$l[1])]);
-            $tarif= $tarif+$livre->getAttr('prix')*$l[1];
+        if (!isset($_SESSION['projet_user_connected'])){
+            header("Location:?controller=utilisateur&action=connexion");
         }
+        else {
+            $idCommande;
+            do{
+                $idCommande   = strtoupper(Security::getRandomHex(8));
+            }while(!Commande::createCommande($idCommande));
+            Commande::linkUser($idCommande, $_SESSION['projet_user_connected']->getAttr('idUtilisateur'));
 
-        Commande::update(['idCommande' => $idCommande, 'prixCommande' => $tarif]);
-        unset($_SESSION['panier']);
 
-    
-        header("Location:?controller=commande&action=commande");
+            $tarif=0;
+            foreach ($_SESSION['panier'] as $l) {
+                $livre = Livre::select($l[0]);
+                Commande::addLivre($livre->getAttr('idLivre'), $idCommande, $l[1]);
+                Livre::update(['idLivre' => $livre->getAttr('idLivre'), 'stock' => ($livre->getAttr('stock')-$l[1])]);
+                $tarif= $tarif+$livre->getAttr('prix')*$l[1];
+            }
+
+            Commande::update(['idCommande' => $idCommande, 'prixCommande' => $tarif]);
+            unset($_SESSION['panier']);
+
+
+            header("Location:?controller=commande&action=commande");
+        }
     }
 
     public static function viderPanier(){
