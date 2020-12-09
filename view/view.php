@@ -1,8 +1,8 @@
 <?php
 
 $CSS = [
-        'view/css/header1.css',
-    'view/css/style3.css',
+        'view/css/header2.css',
+    'view/css/style4.css',
 ];
 $JS = [];
 $LIBRAIRIES = [];

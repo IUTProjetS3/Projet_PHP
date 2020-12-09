@@ -1,7 +1,7 @@
 <header>
     <a href="index.php" id="accueil" class="col-3">
         <p id="logo">
-            NOM DU PROJET
+            Librairie.com
         </p>
     </a>
     <form method="post" action="index.php">
@@ -17,17 +17,20 @@
         <div id="panier" class="item">
             <a href="index.php?action=panier&controller=utilisateur">Panier</a>
         </div>
-        <div id="profil" class="item">
-            <p>Profil</p>
-            <div id="nav_profil">
-                <?php if(isset($_SESSION['projet_user_connected'])):?>
-                    <a href="index.php?controller=utilisateur&action=read&idUtilisateur=<?=$_SESSION['projet_user_connected']->getAttr("idUtilisateur")?>">Profil</a>
-                <?php else : ?>
-                    <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
-                <?php endif; ?>
+            <?php if(isset($_SESSION['projet_user_connected'])):?>
+            <div id="commande" class="item">
                 <a href="index.php?action=commande&controller=commande">Commandes</a>
-                <?php if(isset($_SESSION['projet_user_connected'])):?>
-                    <a href="index.php?action=deconnexion&controller=utilisateur">Déconnexion</a>
+            </div>
+            <div id="profil" class="item">
+                <a href="index.php?controller=utilisateur&action=read&idUtilisateur=<?=rawurlencode($_SESSION['projet_user_connected']->getAttr("idUtilisateur"))?>">Profil</a>
+            </div>
+            <div id="logout" class="item">
+                <a href="index.php?action=deconnexion&controller=utilisateur">Déconnexion</a>
+            </div>
+                <?php else : ?>
+                    <div id="login" class="item">
+                         <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
+                     </div>
                 <?php endif; ?>
             </div>
         </div>
