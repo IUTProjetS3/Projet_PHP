@@ -174,6 +174,7 @@ class ControllerLivre extends Controller {
 			if($_POST["nom"] != "" && $_POST['description'] != "" && $_POST['prix'] != "" && $_POST['stock'] != ""){
 				
 				$idLivre;
+				$data["image"] = self::createImage($_FILES['images']);
 				do{
 					$idLivre = strtoupper(Security::getRandomHex(8));
 					$data = $_POST;
@@ -217,20 +218,20 @@ class ControllerLivre extends Controller {
 		}
 	}
 
-	// private static function createImage($image){
-	// 	$tmpFilePath = $image['tmp_name'];
-	// 	if ($tmpFilePath != ""){
-	// 		$hashName = hash('sha256', $image['name'].rand());
-	// 		$newFilePath = File::build_path(['view', 'img', 'livres']);
-	// 		$extension = explode('.', $image['name'])[1];
-	// 		if(!file_exists($newFilePath)) {
-	// 			mkdir($newFilePath, 0777, true);
-	// 		}
-	// 		move_uploaded_file($tmpFilePath, $newFilePath."/".$hashName.".".$extension);
-	// 		return $hashName.".".$extension;
-	// }
-	// return "";
-	// }
+	private static function createImage($image){
+		$tmpFilePath = $image['tmp_name'];
+		if ($tmpFilePath != ""){
+			$hashName = hash('sha256', $image['name'].rand());
+			$newFilePath = File::build_path(['view', 'img', 'livres']);
+			$extension = explode('.', $image['name'])[1];
+			if(!file_exists($newFilePath)) {
+				mkdir($newFilePath, 0777, true);
+			}
+			move_uploaded_file($tmpFilePath, $newFilePath."/".$hashName.".".$extension);
+			return $hashName.".".$extension;
+	}
+	return "";
+	}
 
 
 	public static function rechercher(){

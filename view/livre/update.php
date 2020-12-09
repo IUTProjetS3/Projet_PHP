@@ -24,6 +24,10 @@
               <label for="id_stock">Stock</label> :
               <input type="number" name="stock" id="id_stock" required value="<?= htmlspecialchars($livre->getAttr("stock")) ?>">
             </p>
+            <p>
+              <label for="id_img">Image</label> :
+              <input type="file" name="image" id="id_img" required>
+            </p>
 
             <p>
               <label for="id_categorie">Catégorie</label> :
