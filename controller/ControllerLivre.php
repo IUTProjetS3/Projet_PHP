@@ -174,7 +174,7 @@ class ControllerLivre extends Controller {
 			if($_POST["nom"] != "" && $_POST['description'] != "" && $_POST['prix'] != "" && $_POST['stock'] != ""){
 				
 				$idLivre;
-				$data["image"] = self::createImage($_FILES['images']);
+				$data["image"] = self::createImage($_FILES['image']);
 				do{
 					$idLivre = strtoupper(Security::getRandomHex(8));
 					$data = $_POST;
