@@ -2,7 +2,7 @@
     <h1>Détail du livre</h1>
     <div style="float:left;">
         
-        <img width="100" src="view/img/livres/<?= htmlspecialchars($livre->getAttr('image')) ?>">
+        <img alt="livre" width="100" src="view/img/livres/<?= htmlspecialchars($livre->getAttr('image')) ?>">
     </div>
     <div>
         <!-- Ou ça <?//php echo $livre->getAttr("nom"); ?>-->

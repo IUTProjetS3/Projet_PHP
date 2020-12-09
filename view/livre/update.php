@@ -3,7 +3,7 @@
     <?php if(!$create) : ?>
     <div style="float:left;">
         
-        <img width="100" src="view/img/livres/<?= htmlspecialchars($livre->getAttr('image')) ?>">
+        <img alt="livre" width="100" src="view/img/livres/<?= htmlspecialchars($livre->getAttr('image')) ?>">
     </div>
   <?php endif; ?>
     <div>
