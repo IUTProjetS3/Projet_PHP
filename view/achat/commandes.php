@@ -1,5 +1,5 @@
 <?php
-if($tab_c)
+if($tab_c){
 
         foreach ($tab_c as $p) :?>
             <p>Commande n°<?= $p[0] ?>: <?=$p[2]?>€</p>

@@ -47,20 +47,9 @@ class ControllerCommande
 }
 
     public static function commander(){
-        if(isset($_SESSION['projet_user_connected'])){
-                if (!isset($_SESSION)){
-                    var_dump("Problème, nous vous invitons à recharger le site");
-                }
-                if (!isset($_SESSION['panier'])){
-                    var_dump("Problème, nous vous invitons à recharger le site");
-                }
-                if (empty($_SESSION['panier'])){
-                    var_dump("Panier Vide");
-                }
-                if (!isset($_SESSION['projet_user_connected'])){
-                    header("Location:?controller=utilisateur&action=connexion");
-                }
-                else {
+        if(isset($_SESSION['projet_user_connected']) && isset($_SESSION['panier'])){
+                
+                
                     $idCommande;
                     do{
                         $idCommande   = strtoupper(Security::getRandomHex(8));
@@ -81,7 +70,7 @@ class ControllerCommande
 
 
                     header("Location:?controller=commande&action=commande");
-                }
+                
             }else{
                 $TITLE = "erreur";
                 $controller = "utilisateur";

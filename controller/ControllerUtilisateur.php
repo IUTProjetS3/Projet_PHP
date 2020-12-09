@@ -8,20 +8,19 @@
 	class ControllerUtilisateur
 	{
 
-        public static function commandes(){
-            $TITLE = "Commandes";
-            $controller = "achat";
-            $page = "commandes";
-            $commandes = ["Pas de commandes"];
+        // public static function commandes(){
+        //     $TITLE = "Commandes";
+        //     $controller = "achat";
+        //     $page = "commandes";
+        //     $commandes = ["Pas de commandes"];
 
-            require File::build_path(["view", "view.php"]);
-        }
+        //     require File::build_path(["view", "view.php"]);
+        // }
 
         public static function panier(){
             $TITLE = "Panier";
             $controller = "achat";
             $page = "panier";
-            $panier = ["Aucun article sélectionner"];
 
             require File::build_path(["view", "view.php"]);
         }
@@ -173,8 +172,8 @@
 		public static function deconnexion(){
             $TITLE = "Accueil";
             $_SESSION['projet_user_connected']->disconnect();
-			$controller = 'accueil';
-			$page = 'index';
+			$controller = 'livre';
+			$page = 'list';
 			require File::build_path(['view', 'view.php']);
 		}
 
@@ -200,17 +199,25 @@
 			if(self::validate()){
 				self::connexion();
 			}else{
-				echo 'error';
+				$erreur = "Vérification échouée";
+				$TITLE = "Erreur";
+            	$controller = "utilisateur";
+				$page = "connexion";
+				$data['mail'] = isset($data['mail']) ? $data['mail'] : "";
+
+				require File::build_path(["view", "view.php"]);
 			}
 		}
 
 
 		public static function validate(){
-        if(Utilisateur::validate($_GET['mail'], $_GET['nonce'])){
-            Utilisateur::changeNonce($_GET['mail']);
-            return true;
-        }
-        return false;
-    }
+			if(isset($_GET)){
+				if(Utilisateur::validate($_GET['mail'], $_GET['nonce'])){
+		            Utilisateur::changeNonce($_GET['mail']);
+		            return true;
+	        	}
+			}
+	        return false;
+    	}
 	}
 ?>
