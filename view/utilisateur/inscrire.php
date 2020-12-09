@@ -1,1 +1,1 @@
-<p>Merci de valider votre email à l'adresse suivante : <a href="http://yopmail.com?<?= $facticeMail ?>">http://yopmail.com?<?=$facticeMail ?></a></p>
+<p>Merci de valider votre email à l'adresse suivante : <a href="http://yopmail.com?<?= htmlspecialchars($facticeMail) ?>">http://yopmail.com?<?=htmlspecialchars($facticeMail) ?></a></p>

@@ -133,8 +133,8 @@
 								$user = Utilisateur::getUtilisateurByMail($mail);
 								if($user->getAttr('nonce') == NULL){
 									$_SESSION['projet_user_connected'] = $user;
-									$controller = "accueil";
-									$page = "index";
+									$controller = "livre";
+									$page = "list";
 	                        		$TITLE = "Accueil";
 
 									require File::build_path(["view", "view.php"]);

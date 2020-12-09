@@ -1,2 +1,2 @@
-<p style="color: red"><?= $erreur ?></p>
+<p style="color: red"><?= htmlspecialchars($erreur) ?></p>
 

@@ -7,9 +7,9 @@ if (isset($_SESSION['panier'])) {
     else {
         foreach ($_SESSION['panier'] as $l) :
             $livre = Livre::select($l[0]);
-            $tarif = $tarif + $livre->getAttr('prix')*$l[1];
+            $tarif = $tarif + htmlspecialchars($livre->getAttr('prix'))*$l[1];
             ?>
-            <p><?=$livre->getAttr('nom')?> : <?=$l[1]?></p>
+            <p><?= htmlspecialchars($livre->getAttr('nom')) ?> : <?= htmlspecialchars($l[1]) ?></p>
         <?php endforeach;?>
         <p>Montant Total : <?= $tarif ?> €</p>
         <a href="?controller=commande&action=commander">
