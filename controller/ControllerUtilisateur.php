@@ -237,7 +237,7 @@
 			if(isset($_SESSION['projet_user_connected'])){
             	$_SESSION['projet_user_connected']->disconnect();
             }
-			header("Location : index.php");
+			header("Location:index.php");
 		}
 
 		public static function sendMail($facticeMail, $nonce, $mail){
