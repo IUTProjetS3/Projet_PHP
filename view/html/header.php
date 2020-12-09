@@ -32,7 +32,5 @@
                          <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
                      </div>
                 <?php endif; ?>
-            </div>
-        </div>
     </nav>
 </header>
