@@ -1,5 +1,7 @@
 <?php
 
+require_once(File::build_path(array("controller", "Controller.php")));
+
 require_once(File::build_path(array("controller", "ControllerUtilisateur.php")));
 
 require_once(File::build_path(array("controller", "ControllerAccueil.php")));
@@ -37,12 +39,10 @@ if(class_exists($controller_class)){
 
 		$controller_class::$action(); 
 	}else{
-		$erreur = "Erreur lors du traitement !";
-		$controller_class::error($erreur);
+		$controller_class::error();
 	}
 }else{
-		$erreur = "Erreur lors du traitement !";
-		ControllerAccueil::error($erreur);
+		ControllerAccueil::error();
 	}
 
 ?>

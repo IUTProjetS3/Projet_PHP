@@ -3,7 +3,7 @@
 require_once File::build_path(['model', 'Livre.php']);
 require_once File::build_path(['lib', 'Security.php']);
 
-class ControllerLivre {
+class ControllerLivre extends Controller {
 
 
 	//Il faut ajouter deleted et update et error
@@ -132,14 +132,6 @@ class ControllerLivre {
 		}
 	}
 
-	// A finir (mais obligatoire ?)
-	public static function error($erreur){
-		$TITLE = "erreur";
-		$controller = "livre";
-		$page = "error";
-		
-		require File::build_path(["view", "view.php"]);
-	}	
 
 
 

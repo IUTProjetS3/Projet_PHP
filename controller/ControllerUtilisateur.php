@@ -5,7 +5,7 @@
 	/**
 	 * Il faut ajouter deleted et update et error
 	 */
-	class ControllerUtilisateur
+	class ControllerUtilisateur extends Controller
 	{
 
         // public static function commandes(){

@@ -3,7 +3,7 @@
 	/**
 	 * 
 	 */
-	class ControllerAccueil
+	class ControllerAccueil extends Controller
 	{
 		
 		public static function accueil(){

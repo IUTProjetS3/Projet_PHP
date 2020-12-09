@@ -1,11 +1,12 @@
 <?php
 
+
 require_once File::build_path(['model', 'Utilisateur.php']);
 require_once File::build_path(['model', 'Commande.php']);
 
 
 
-class ControllerCommande
+class ControllerCommande extends Controller
 {
 
     public static function read(){
@@ -85,5 +86,7 @@ class ControllerCommande
         unset($_SESSION['panier']);
         header("Location:?action=panier&controller=utilisateur");
     }
+
+
 
 }
