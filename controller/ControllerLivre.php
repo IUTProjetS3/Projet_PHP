@@ -144,39 +144,55 @@ class ControllerLivre {
 
 
 	public static function create(){
-		$categories = Categorie::selectAll();
-		$page = "update";
-		$controller = "livre";
-		$create = true;
-		$livre = new Livre(["nom" => "", "description" => "", "prix" => ""]);
-		$livre->setAttr("categorie", new Categorie(['idCategorie' => -1, 'nom' => 'Catégorie...']));
-		$TITLE = "Ajouter un livre";
-		require File::build_path(["view", "view.php"]);
+		if(Session::is_admin()){
+			$categories = Categorie::selectAll();
+			$page = "update";
+			$controller = "livre";
+			$create = true;
+			$livre = new Livre(["nom" => "", "description" => "", "prix" => ""]);
+			$livre->setAttr("categorie", new Categorie(['idCategorie' => -1, 'nom' => 'Catégorie...']));
+			$TITLE = "Ajouter un livre";
+			require File::build_path(["view", "view.php"]);
+		}else{
+			$tab_l = Livre::selectAll();
+			$page = "list";
+			$controller = "livre";
+			$TITLE = "Accueil";
+			require File::build_path(['view', "view.php"]);   
+		}
 	}
 
 	public static function created(){
-		if(isset($_POST)){
-			
-			$idLivre;
-			do{
-				$idLivre = strtoupper(Security::getRandomHex(8));
-				$data = $_POST;
-				$data['idLivre'] = $idLivre;
-
-
-			}while(!Livre::createLivre($data, ['action', 'controller', 'categorie']));
-
-			
+		if(Session::id_admin()){
+			if(isset($_POST)){
 				
-			Livre::linkCategorie($idLivre, $_POST['categorie']);
-				
+				$idLivre;
+				do{
+					$idLivre = strtoupper(Security::getRandomHex(8));
+					$data = $_POST;
+					$data['idLivre'] = $idLivre;
 
-				$tab_l = Livre::selectAll();
-				$page = "created";
-				$controller = "livre";
-				$TITLE = "Livre créé";
-				require File::build_path(['view', 'view.php']);
-			
+
+				}while(!Livre::createLivre($data, ['action', 'controller', 'categorie']));
+
+				
+					
+				Livre::linkCategorie($idLivre, $_POST['categorie']);
+					
+
+					$tab_l = Livre::selectAll();
+					$page = "created";
+					$controller = "livre";
+					$TITLE = "Livre créé";
+					require File::build_path(['view', 'view.php']);
+				
+			}
+		}else{
+			$tab_l = Livre::selectAll();
+			$page = "list";
+			$controller = "livre";
+			$TITLE = "Accueil";
+			require File::build_path(['view', "view.php"]);   
 		}
 	}
 
