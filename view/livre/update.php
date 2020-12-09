@@ -18,7 +18,7 @@
             </p>
             <p>
               <label for="id_prix">Prix</label> :
-              <input type="number" name="prix" id="id_prix" required value="<?= htmlspecialchars($livre->getAttr("prix")) ?>">€
+              <input type="number" name="prix" step="0.01" id="id_prix" required value="<?= htmlspecialchars($livre->getAttr("prix")) ?>">€
             </p>
             <p>
               <label for="id_stock">Stock</label> :
