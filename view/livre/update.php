@@ -1,5 +1,5 @@
 <div>
-    <h1><?= $create ? 'Mofidier' : 'Créer' ?> le livre</h1>
+    <h1><?= !$create ? 'Mofidier' : 'Créer' ?> le livre</h1>
     <?php if(!$create) : ?>
     <div style="float:left;">
         

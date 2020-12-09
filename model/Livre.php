@@ -9,6 +9,7 @@ class Livre extends Model{
   private $description;
   private $prix;
   private $avis;
+  private $stock;
   private $image;
   private $categorie;
 

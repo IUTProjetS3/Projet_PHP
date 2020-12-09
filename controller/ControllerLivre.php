@@ -71,7 +71,7 @@ class ControllerLivre extends Controller {
 	
 	public static function updated(){ //A finir 
         if(Session::is_admin()){
-        	if(isset($_POST)){
+        	if($_POST["nom"] != "" && $_POST['description'] != "" && $_POST['prix'] != "" && $_POST['stock'] != "" && $_POST['idLivre'] != ""){
         		//A envoyer à la fonction le tableau et un tableau des clés qu'on ne veut pas enregistrer
         		Livre::update($_POST, ['action', 'controller', 'categorie']);
         		Livre::setCategorie($_POST['idLivre'], $_POST['categorie']);
@@ -79,6 +79,21 @@ class ControllerLivre extends Controller {
         		$controller = "livre";
         		$TITLE = "Livre modifié";
         		require File::build_path(['view', 'view.php']);
+        	}else{
+        		$erreur = "Remplir tous les champs";
+        		$TITLE = "Modifier Livre";
+				$controller = "livre";
+				$page = "update";
+				$create = false;
+				$livre = new Livre();
+				$livre->setAttr("idLivre", $_POST['idLivre	']);
+				$livre->setAttr("nom", $_POST['nom']);
+				$livre->setAttr("description", $_POST['description']);
+				$livre->setAttr("prix", $_POST['prix']);
+				$livre->setAttr("stock", $_POST['stock']);
+				$livre->setAttr("categorie", Categorie::select($_POST['categorie']));
+				$categories = Categorie::selectAll();
+				require File::build_path(["view", "view.php"]);
         	}
         }
         else{
@@ -155,8 +170,8 @@ class ControllerLivre extends Controller {
 	}
 
 	public static function created(){
-		if(Session::id_admin()){
-			if(isset($_POST)){
+		if(Session::is_admin()){
+			if($_POST["nom"] != "" && $_POST['description'] != "" && $_POST['prix'] != "" && $_POST['stock'] != ""){
 				
 				$idLivre;
 				do{
@@ -178,6 +193,20 @@ class ControllerLivre extends Controller {
 					$TITLE = "Livre créé";
 					require File::build_path(['view', 'view.php']);
 				
+			}else{
+				$erreur = "Remplir tous les champs";
+				$categories = Categorie::selectAll();
+				$page = "update";
+				$controller = "livre";
+				$create = true;
+				$livre = new Livre();
+				$livre->setAttr("nom", $_POST['nom']);
+				$livre->setAttr("description", $_POST['description']);
+				$livre->setAttr("prix", $_POST['prix']);
+				$livre->setAttr("stock", $_POST['stock']);
+				$livre->setAttr("categorie", Categorie::select($_POST['categorie']));
+				$TITLE = "Ajouter un livre";
+				require File::build_path(["view", "view.php"]);
 			}
 		}else{
 			$tab_l = Livre::selectAll();
