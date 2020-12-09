@@ -29,6 +29,10 @@ header nav .item {
     padding: 0 5px;
 }
 
+header nav .item:first-child{
+    border:none;
+}
+
 header nav {
     display: flex;
     flex-direction: row;
