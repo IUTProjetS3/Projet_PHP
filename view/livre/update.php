@@ -5,7 +5,8 @@
         
 <?php if($livre->getAttr('image') != "" && $livre->getAttr('image') != NULL) : ?>
                 <img alt="livre" width="100" src="view/img/livres/<?= htmlspecialchars($livre->getAttr('image')) ?>">
-            <?php endif; ?>    </div>    </div>
+            <?php endif; ?>    
+          </div> 
   <?php endif; ?>
     <div>
         <form method="post" action="index.php" enctype="multipart/form-data">
