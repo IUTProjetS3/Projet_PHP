@@ -53,6 +53,7 @@ class ControllerLivre {
 			$TITLE = "Modifier Livre";
 			$controller = "livre";
 			$page = "update";
+			$create = false;
 			$idlivre = $_GET['idLivre'];
 			$livre = Livre::select($idlivre);
 			$livre->getCategorie();
@@ -132,7 +133,7 @@ class ControllerLivre {
 	}
 
 	// A finir (mais obligatoire ?)
-	public static function error(){
+	public static function error($erreur){
 		$TITLE = "erreur";
 		$controller = "livre";
 		$page = "error";
@@ -144,8 +145,11 @@ class ControllerLivre {
 
 	public static function create(){
 		$categories = Categorie::selectAll();
-		$page = "create";
+		$page = "update";
 		$controller = "livre";
+		$create = true;
+		$livre = new Livre(["nom" => "", "description" => "", "prix" => ""]);
+		$livre->setAttr("categorie", new Categorie(['idCategorie' => -1, 'nom' => 'Catégorie...']));
 		$TITLE = "Ajouter un livre";
 		require File::build_path(["view", "view.php"]);
 	}

@@ -28,7 +28,7 @@ class Livre extends Model{
   public function __construct($data = NULL){
     if (!is_null($data)){
       foreach ($data as $key => $value) {
-        $this->key = value;
+        $this->key = $value;
       }
     }
   } 
