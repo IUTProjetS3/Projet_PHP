@@ -69,15 +69,31 @@
 
         public static function updated(){
         	$post = true;
-        	if(!isset($_POST)) $post = false;
+        	if($_POST['prenomUtilisateur'] == "" || $_POST['nomUtilisateur'] == "") $post = false;
         	$u = Utilisateur::select($_POST['idUtilisateur']);
-        	if((Session::is_admin() ||  $_SESSION['projet_user_connected']->getAttr('idUtilisateur') == $u->getAttr("idUtilisateur")) && $post && isset($_SESSION['projet_user_connected'])){
-        		Utilisateur::update($_POST, ['action', 'controller']);
+        	if(isset($_SESSION['projet_user_connected']) && (Session::is_admin() ||  $_SESSION['projet_user_connected']->getAttr('idUtilisateur') == $u->getAttr("idUtilisateur")) ){
+        		if($post){
+	        		Utilisateur::update($_POST, ['action', 'controller']);
 
-        		$page = "updated";
-        		$controller = "utilisateur";
-        		$TITLE = "Succès";
-        		require File::build_path(["view", "view.php"]);
+	        		$page = "updated";
+	        		$controller = "utilisateur";
+	        		$TITLE = "Succès";
+	        		require File::build_path(["view", "view.php"]);
+        		}else{
+        			$erreur = "Veuillez remplir tous les champs";
+        			$TITLE = "Modifier Profil";
+		            $controller = "utilisateur";
+		            $page = "inscription";
+		            $data = [
+		            	"prenom" => $_POST['prenomUtilisateur'],
+		            	"nom" => $_POST['nomUtilisateur'],
+		            	"mail" => $_POST['mailUtilisateur'],
+		            	"id" => $_POST['idUtilisateur'],
+		            	"role" => $_POST['role']
+		            ];
+		            $create = false;
+		            require File::build_path(["view", "view.php"]);
+        		}
         	}else{
         		$erreur = "Erreur lors de la modification";
         		$TITLE = "Profil";

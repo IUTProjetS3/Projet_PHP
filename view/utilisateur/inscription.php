@@ -24,13 +24,25 @@
     </p>
   <?php endif; ?>
 
-  <?php if(!$create) : ?>
-      <input type="hidden" name='idUtilisateur' value="<?= htmlspecialchars($u->getAttr("idUtilisateur")) ?>">
-      <?php if(Session::is_admin()) : ?>
+  <?php if(!$create) :
+    if(isset($data['id']))
+      $idUtilisateur = $data['id'];
+    else
+       $idUtilisateur = $u->getAttr("idUtilisateur");
+
+   ?>
+      <input type="hidden" name='idUtilisateur' value="<?= htmlspecialchars($idUtilisateur) ?>">
+      <?php if(Session::is_admin()) : 
+        if(isset($data['role']))
+          $role = $data['role'];
+        else
+           $role = $u->getAttr("role");
+
+        ?>
     <p>
       <select name="role">
-        <option <?= $u->getAttr("role") == "admin" ? "selected" : "" ?> value="admin">Admin</option>
-        <option <?= $u->getAttr("role") == "acheteur" ? "selected" : "" ?> value="acheteur">Acheteur</option>
+        <option <?= $role == "admin" ? "selected" : "" ?> value="admin">Admin</option>
+        <option <?= $role == "acheteur" ? "selected" : "" ?> value="acheteur">Acheteur</option>
       </select>
     </p>
   <?php endif; ?>
