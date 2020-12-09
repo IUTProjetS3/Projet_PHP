@@ -25,27 +25,95 @@
             require File::build_path(["view", "view.php"]);
         }
 
-	    public static function profil(){
+        public static function readAll(){
+        	$tab_u = Utilisateur::selectAll();
+        	$TITLE = "Liste Utilisateur";
+        	$page = "list";
+        	$controller = "utilisateur";
+        	require File::build_path(['view', 'view.php']);
+        }
+
+	    public static function read(){
             $TITLE = "Profil";
-            $controller = "profil";
-	        $page = "profil";
-	        $idprofil = $_GET['id'];
+            $controller = "utilisateur";
+	        $page = "detail";
+	        $idprofil = $_GET['idUtilisateur'];
 	        $profil = Utilisateur::select($idprofil);
 
 	        require File::build_path(["view", "view.php"]);
         }
 
         public static function modifierprofil(){
-            $TITLE = "Modifier Profil";
-            $controller = "profil";
-            $page = "modifierprofil";
+        	$u = Utilisateur::select($_GET['idUtilisateur']);
+        	if(isset($_SESSION['projet_user_connected']) && (Session::is_admin() ||  $_SESSION['projet_user_connected']->getAttr('idUtilisateur') == $u->getAttr("idUtilisateur"))){
+	            $TITLE = "Modifier Profil";
+	            $controller = "utilisateur";
+	            $page = "inscription";
+	            $data = [
+	            	"prenom" => $u->getAttr('prenomUtilisateur'),
+	            	"nom" => $u->getAttr('nomUtilisateur'),
+	            	"mail" => $u->getAttr('mailUtilisateur')
+	            ];
+	            $create = false;
+	            require File::build_path(["view", "view.php"]);
+        	}else{
+        		$erreur = "Erreur lors de la modification";
+        		$TITLE = "Profil";
+	            $controller = "utilisateur";
+		        $page = "detail";
+		        $profil = $u;
 
-            require File::build_path(["view", "view.php"]);
+		        require File::build_path(["view", "view.php"]);
+        	}
+        }
+
+        public static function updated(){
+        	$post = true;
+        	if(!isset($_POST)) $post = false;
+        	$u = Utilisateur::select($_POST['idUtilisateur']);
+        	if((Session::is_admin() ||  $_SESSION['projet_user_connected']->getAttr('idUtilisateur') == $u->getAttr("idUtilisateur")) && $post && isset($_SESSION['projet_user_connected'])){
+        		Utilisateur::update($_POST, ['action', 'controller']);
+
+        		$page = "updated";
+        		$controller = "utilisateur";
+        		$TITLE = "Succès";
+        		require File::build_path(["view", "view.php"]);
+        	}else{
+        		$erreur = "Erreur lors de la modification";
+        		$TITLE = "Profil";
+	            $controller = "utilisateur";
+		        $page = "detail";
+		        $profil = $u;
+
+		        require File::build_path(["view", "view.php"]);
+        	}
+        }
+
+        public static function delete(){
+        	$get = true;
+        	if(!isset($_GET['idUtilisateur'])) $get = false;
+        	$u = Utilisateur::select($_GET['idUtilisateur']);
+        	if(isset($_SESSION['projet_user_connected']) && $get && (Session::is_admin() ||  $_SESSION['projet_user_connected']->getAttr('idUtilisateur') == $u->getAttr("idUtilisateur"))){
+        		Utilisateur::delete($_GET['idUtilisateur']);
+        		$page = "deleted";
+        		$controller = "utilisateur";
+        		$TITLE = "Succès";
+        		require File::build_path(["view", "view.php"]);
+        	}else{
+        		$erreur = "Erreur lors de la suppression";
+        		$TITLE = "Profil";
+	            $controller = "utilisateur";
+		        $page = "detail";
+		        $profil = $u;
+
+		        require File::build_path(["view", "view.php"]);
+        	}
         }
 		
 		public static function inscription(){
             $TITLE = "Inscription";
             $controller = "utilisateur";
+            $create = true;
 			$page = "inscription";
 			$data['nom'] = isset($data['nom']) ? $data['nom'] : "";
 			$data['prenom'] = isset($data['prenom']) ? $data['prenom'] : "";
@@ -133,15 +201,11 @@
 								$user = Utilisateur::getUtilisateurByMail($mail);
 								if($user->getAttr('nonce') == NULL){
 									$_SESSION['projet_user_connected'] = $user;
-									$controller = "livre";
-									$page = "list";
-	                        		$TITLE = "Accueil";
-
-									require File::build_path(["view", "view.php"]);
+									header("Location:index.php");
 								}else{
 									$facticeMail = "projetPHP-".explode('@', htmlspecialchars($mail))[0];
 
-									$erreur = "Mail non validé <p>Veuillez le validé sur : <a href='http://yopmail.com?$facticeMail'>http://yopmail.com?$facticeMail</a></p>";
+									$erreur = "Mail non validé <p>Veuillez le validé sur : <a href='http://yopmail.com?".htmlspecialchars($facticeMail)."'>http://yopmail.com?".htmlspecialchars($facticeMail)."</a></p>";
 
 								}
 
@@ -170,11 +234,10 @@
 		} 
 
 		public static function deconnexion(){
-            $TITLE = "Accueil";
-            $_SESSION['projet_user_connected']->disconnect();
-			$controller = 'livre';
-			$page = 'list';
-			require File::build_path(['view', 'view.php']);
+			if(isset($_SESSION['projet_user_connected'])){
+            	$_SESSION['projet_user_connected']->disconnect();
+            }
+			header("Location : index.php");
 		}
 
 		public static function sendMail($facticeMail, $nonce, $mail){

@@ -11,6 +11,9 @@
         <input type="hidden" name="action" value="rechercher">
     </form>
     <nav id="navigation" class="col-4">
+        <div id="utilisateur" class="item">
+            <a href="index.php?action=readAll&controller=utilisateur">Liste utilisateurs</a>
+        </div>
         <div id="panier" class="item">
             <a href="index.php?action=panier&controller=utilisateur">Panier</a>
         </div>
@@ -18,7 +21,7 @@
             <p>Profil</p>
             <div id="nav_profil">
                 <?php if(isset($_SESSION['projet_user_connected'])):?>
-                    <a href="index.php?controller=utilisateur&action=profil&id=<?=$_SESSION['projet_user_connected']->getAttr("idUtilisateur")?>">Profil</a>
+                    <a href="index.php?controller=utilisateur&action=read&idUtilisateur=<?=$_SESSION['projet_user_connected']->getAttr("idUtilisateur")?>">Profil</a>
                 <?php else : ?>
                     <a href="index.php?controller=utilisateur&action=connexion">Connexion</a>
                 <?php endif; ?>
